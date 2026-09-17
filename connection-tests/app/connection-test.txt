@@ -1,0 +1,1 @@
+Yadeto app FTP connection test was successful.
