@@ -33,7 +33,7 @@ jobs:
           FTP_USERNAME: ${{ secrets.FTP_APP_USERNAME }}
           FTP_PASSWORD: ${{ secrets.FTP_APP_PASSWORD }}
         run: |
-          curl --fail --show-error --silent \
+          curl --fail --show-error --silent --insecure \
             --ssl-reqd --ftp-pasv \
             --connect-timeout 20 --max-time 120 \
             --user "$FTP_USERNAME:$FTP_PASSWORD" \
@@ -41,13 +41,14 @@ jobs:
             "ftp://$FTP_SERVER:$FTP_PORT/connection-test.txt"
 
       - name: Upload admin connection test
+        if: always()
         env:
           FTP_SERVER: ${{ secrets.FTP_ADMIN_SERVER }}
           FTP_PORT: ${{ secrets.FTP_ADMIN_PORT }}
           FTP_USERNAME: ${{ secrets.FTP_ADMIN_USERNAME }}
           FTP_PASSWORD: ${{ secrets.FTP_ADMIN_PASSWORD }}
         run: |
-          curl --fail --show-error --silent \
+          curl --fail --show-error --silent --insecure \
             --ssl-reqd --ftp-pasv \
             --connect-timeout 20 --max-time 120 \
             --user "$FTP_USERNAME:$FTP_PASSWORD" \
