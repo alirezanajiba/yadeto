@@ -1,4 +1,4 @@
 {
-  "name":"یادتو","short_name":"یادتو","description":"یادآور تولد فارسی","lang":"fa","dir":"rtl","start_url":"/","display":"standalone","background_color":"#F8F5F0","theme_color":"#27737A",
+  "name":"یادتو","short_name":"یادتو","description":"یادآور تولد فارسی","lang":"fa","dir":"rtl","start_url":"/","display":"standalone","background_color":"#FDFAF5","theme_color":"#2B7C82",
   "icons":[{"src":"icon.svg","sizes":"any","type":"image/svg+xml","purpose":"any maskable"}]
 }

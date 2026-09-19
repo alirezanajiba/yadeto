@@ -3,59 +3,99 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,viewport-fit=cover">
-  <meta name="theme-color" content="#27737A">
+  <meta name="theme-color" content="#fdfaf5">
   <meta name="description" content="یادتو؛ یادآور تولد فارسی">
   <link rel="manifest" href="manifest.webmanifest">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Vazirmatn:wght@400;500;600;700;800&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="styles.css?v=1.0.0">
+  <link rel="stylesheet" href="styles.css?v=1.1.0">
   <title>یادتو</title>
 </head>
 <body>
   <div class="app-shell">
-    <header class="topbar">
-      <button class="icon-button" type="button" aria-label="باز کردن منو">☰</button>
-      <div class="brand">یادتو <span>♥</span></div>
-      <button class="icon-button" id="installButton" type="button" aria-label="نصب اپلیکیشن" hidden>⇩</button>
-    </header>
-    <main>
-      <section class="hero">
-        <div><span class="eyebrow">نسخه اولیه توسعه</span><h1>هیچ تولدی از یادت نمی‌ره</h1><p>تولد آدم‌های مهم زندگیت را ثبت کن و به‌موقع یادآوری بگیر.</p></div>
-        <div class="hero-art" aria-hidden="true"><span>♡</span><b>🎂</b></div>
-      </section>
-      <section class="search-section">
-        <label class="search-box"><span>⌕</span><input id="searchInput" type="search" placeholder="جست‌وجوی نام یا مناسبت..." autocomplete="off"></label>
-        <div class="filters" id="filters" aria-label="فیلتر تولدها">
-          <button class="filter active" data-filter="all">همه</button><button class="filter" data-filter="today">امروز</button><button class="filter" data-filter="week">هفته آینده</button><button class="filter" data-filter="month">ماه آینده</button>
-        </div>
-      </section>
-      <section class="section-head"><div><h2>نزدیک‌ترین تولدها</h2><p id="resultCount"></p></div><button class="text-button" id="favoriteButton" type="button">منتخب‌ها ☆</button></section>
-      <section class="birthday-list" id="birthdayList" aria-live="polite"></section>
-      <section class="empty-state" id="emptyState" hidden><div>🎈</div><h3>تولدی پیدا نشد</h3><p>فیلتر را تغییر بده یا یک متولد جدید اضافه کن.</p></section>
-    </main>
-    <button class="fab" id="addButton" type="button" aria-label="افزودن متولد">＋</button>
-    <nav class="bottom-nav" aria-label="ناوبری اصلی">
-      <button class="nav-item active"><span>⌂</span>خانه</button><button class="nav-item"><span>▦</span>تقویم</button><button class="nav-item"><span>▤</span>یادداشت‌ها</button><button class="nav-item"><span>⚙</span>تنظیمات</button>
-    </nav>
+    <section class="onboarding" id="onboarding" aria-label="معرفی یادتو">
+      <div class="onboarding-glow glow-one"></div><div class="onboarding-glow glow-two"></div>
+      <div class="onboarding-brand"><span>یادتو</span><svg class="brand-heart"><use href="#i-heart-fill"/></svg></div>
+      <h1>هیچ تولدی از یادت نمی‌ره</h1>
+      <div class="birthday-illustration" aria-hidden="true">
+        <svg viewBox="0 0 360 310" role="img">
+          <defs>
+            <linearGradient id="cake" x1="0" x2="1"><stop stop-color="#ff9872"/><stop offset="1" stop-color="#f27652"/></linearGradient>
+            <linearGradient id="leaf" x1="0" x2="1"><stop stop-color="#9dc6bd"/><stop offset="1" stop-color="#5b9e9c"/></linearGradient>
+          </defs>
+          <path d="M25 267c26-34 68-49 108-35 30 11 57 1 88-4 45-8 83 7 109 39-37 25-267 27-305 0Z" fill="#f6dfd2"/>
+          <path d="M91 238c-24-53-25-103-5-145M88 176c-24-9-38-29-35-53 25 3 41 20 38 46M91 145c25-15 35-38 27-64-24 11-35 32-29 56M88 210c-22-5-39-20-44-42 25-2 43 12 48 36" fill="none" stroke="#5b9e9c" stroke-width="8" stroke-linecap="round"/>
+          <path d="M89 176c-22-9-35-27-34-48 21 5 33 20 34 48ZM92 143c20-15 27-33 23-54-20 11-29 29-23 54ZM88 207c-19-6-32-19-38-35 20 0 34 12 38 35Z" fill="url(#leaf)" opacity=".78"/>
+          <rect x="218" y="71" width="89" height="84" rx="17" fill="#fff0e9" stroke="#efb8a2" stroke-width="3" transform="rotate(6 218 71)"/>
+          <path d="M235 65v20M289 71v20" stroke="#f07a54" stroke-width="8" stroke-linecap="round"/>
+          <path d="M251 112c0-12 16-13 18-3 4-9 20-4 16 8-3 9-18 16-18 16s-16-10-16-21Z" fill="#f47b50"/>
+          <ellipse cx="195" cy="259" rx="91" ry="19" fill="#286f76" opacity=".22"/>
+          <path d="M118 224h159v30c0 16-36 29-80 29s-79-13-79-29v-30Z" fill="#2d7c82"/>
+          <ellipse cx="197" cy="224" rx="80" ry="25" fill="#438e91"/>
+          <path d="M132 153h130v73c0 22-29 34-65 34s-65-12-65-34v-73Z" fill="url(#cake)"/>
+          <ellipse cx="197" cy="153" rx="65" ry="23" fill="#ffc2a8"/>
+          <path d="M132 158c19 1 17 25 33 24 18-1 16-23 34-21 16 1 15 24 32 21 17-3 13-22 31-24v40c-16 1-14 20-31 22-17 2-16-18-32-19-18-1-16 20-34 21-16 1-14-21-33-22v-42Z" fill="#ffad8d"/>
+          <rect x="188" y="91" width="18" height="67" rx="9" fill="#6aa6a2"/>
+          <path d="M197 89c-16-16 2-29 2-29s17 15-2 29Z" fill="#f3ad48"/>
+          <path d="M206 42l6-13M220 49l12-8M190 43l-2-14" stroke="#f3a34c" stroke-width="5" stroke-linecap="round"/>
+          <path d="M292 206c5-22 20-34 39-35-2 20-14 33-35 38M291 227c-2-20-14-33-31-38 0 19 11 33 29 42" fill="#86b6ad"/>
+          <circle cx="287" cy="58" r="7" fill="#f47b50"/><circle cx="46" cy="91" r="6" fill="#f1ad56"/>
+        </svg>
+      </div>
+      <div class="onboarding-copy"><b>یادآوری تولد عزیزانت</b><span>ساده، دقیق و مطمئن</span></div>
+      <div class="dots"><i class="active"></i><i></i><i></i></div>
+      <button class="primary-button" id="startButton" type="button">شروع کنیم</button>
+      <button class="link-button" id="loginButton" type="button">ورود به حساب</button>
+    </section>
+
+    <div class="product" id="product" hidden>
+      <header class="topbar">
+        <button class="icon-button" id="menuButton" type="button" aria-label="باز کردن منو"><svg><use href="#i-menu"/></svg></button>
+        <div class="brand"><span>یادتو</span><svg><use href="#i-heart-fill"/></svg></div>
+        <button class="icon-button" id="installButton" type="button" aria-label="نصب اپلیکیشن" hidden><svg><use href="#i-download"/></svg></button>
+      </header>
+      <main class="pages" id="pages">
+        <section class="page active" data-page="home">
+          <div class="page-inner home-page">
+            <label class="search-box"><svg><use href="#i-search"/></svg><input id="searchInput" type="search" placeholder="جست‌وجوی نام یا مناسبت..." autocomplete="off"></label>
+            <div class="filters" id="filters"><button class="filter active" data-filter="all">همه</button><button class="filter" data-filter="today">امروز</button><button class="filter" data-filter="week">هفته آینده</button><button class="filter" data-filter="month">ماه آینده</button></div>
+            <div class="section-head"><div><h2>نزدیک‌ترین تولدها</h2><p id="resultCount"></p></div><button class="text-button" id="favoriteButton" type="button"><svg><use href="#i-heart"/></svg> منتخب‌ها</button></div>
+            <div class="birthday-list" id="birthdayList" aria-live="polite"></div>
+            <div class="empty-state" id="emptyState" hidden><svg><use href="#i-balloon"/></svg><h3>تولدی پیدا نشد</h3><p>فیلتر را تغییر بده یا یک متولد جدید اضافه کن.</p></div>
+          </div>
+        </section>
+        <section class="page" data-page="calendar">
+          <div class="page-header"><button class="back-button" data-go="home"><svg><use href="#i-chevron-right"/></svg></button><h1>تقویم تولدها</h1><span></span></div>
+          <div class="page-inner calendar-page"><article class="calendar-card"><div class="calendar-title"><button><svg><use href="#i-chevron-right"/></svg></button><b>مهر ۱۴۰۵</b><button><svg><use href="#i-chevron-left"/></svg></button></div><div class="weekdays"><span>ش</span><span>ی</span><span>د</span><span>س</span><span>چ</span><span>پ</span><span>ج</span></div><div class="calendar-grid" id="calendarGrid"></div></article><div class="section-head compact"><h2>رویدادهای این ماه</h2><span>۴ تولد</span></div><div class="month-events" id="monthEvents"></div></div>
+        </section>
+        <section class="page" data-page="notes">
+          <div class="page-header"><button class="back-button" data-go="home"><svg><use href="#i-chevron-right"/></svg></button><h1>یادداشت‌ها</h1><button class="header-action"><svg><use href="#i-plus"/></svg></button></div>
+          <div class="page-inner notes-page"><div class="note-card coral"><div class="note-icon"><svg><use href="#i-gift"/></svg></div><div><b>ایده هدیه برای سارا</b><p>کتاب مورد علاقه‌اش و یک دسته‌گل کوچک</p><span>ویرایش‌شده در ۲۵ شهریور</span></div></div><div class="note-card teal"><div class="note-icon"><svg><use href="#i-note"/></svg></div><div><b>رزرو رستوران</b><p>برای تولد علی، پنج‌شنبه ساعت ۲۰</p><span>ویرایش‌شده در ۲۳ شهریور</span></div></div><div class="note-card sand"><div class="note-icon"><svg><use href="#i-message"/></svg></div><div><b>متن تبریک مریم</b><p>یادآوری خاطره سفر شمال در پیام تبریک</p><span>ویرایش‌شده در ۲۰ شهریور</span></div></div></div>
+        </section>
+        <section class="page" data-page="settings">
+          <div class="page-header"><button class="back-button" data-go="home"><svg><use href="#i-chevron-right"/></svg></button><h1>تنظیمات</h1><span></span></div>
+          <div class="page-inner settings-page"><button class="profile-card"><span class="avatar avatar-s">ع</span><span><b>علیرضا نجیبا</b><small>مشاهده و ویرایش پروفایل</small></span><svg><use href="#i-chevron-left"/></svg></button><div class="settings-group"><h2>یادآوری و نمایش</h2><button class="settings-row" data-go="reminders"><span class="setting-icon teal"><svg><use href="#i-bell"/></svg></span><span><b>تنظیم یادآوری‌ها</b><small>زمان و روش دریافت اعلان</small></span><svg><use href="#i-chevron-left"/></svg></button><button class="settings-row"><span class="setting-icon coral"><svg><use href="#i-users"/></svg></span><span><b>مدیریت گروه‌ها</b><small>خانواده، دوستان و همکاران</small></span><svg><use href="#i-chevron-left"/></svg></button><label class="settings-row"><span class="setting-icon blue"><svg><use href="#i-moon"/></svg></span><span><b>حالت شب</b><small>نمایش تیره در شب</small></span><input class="switch" type="checkbox"></label></div><div class="settings-group"><h2>حساب و پشتیبانی</h2><button class="settings-row"><span class="setting-icon sand"><svg><use href="#i-crown"/></svg></span><span><b>اشتراک من</b><small>مشاهده و تمدید اشتراک</small></span><svg><use href="#i-chevron-left"/></svg></button><button class="settings-row"><span class="setting-icon teal"><svg><use href="#i-help"/></svg></span><span><b>راهنما و پشتیبانی</b><small>پاسخ پرسش‌های متداول</small></span><svg><use href="#i-chevron-left"/></svg></button></div><div class="version-line">نسخه ۱.۱.۰</div></div>
+        </section>
+        <section class="page" data-page="detail"><div class="page-header transparent"><button class="back-button" data-go="home"><svg><use href="#i-chevron-right"/></svg></button><span></span><button class="header-action"><svg><use href="#i-more"/></svg></button></div><div class="page-inner detail-page" id="detailContent"></div></section>
+        <section class="page" data-page="reminders">
+          <div class="page-header"><button class="back-button" data-go="settings"><svg><use href="#i-chevron-right"/></svg></button><h1>یادآوری‌ها</h1><span></span></div>
+          <div class="page-inner reminder-page"><label class="master-toggle"><span><b>یادآوری تولدها</b><small>دریافت اعلان برای تولدها</small></span><input class="switch" type="checkbox" checked></label><label class="field-card"><span><b>چند روز قبل؟</b><small>زمان اولین یادآوری</small></span><select><option>۲ روز قبل</option><option>۱ روز قبل</option><option>همان روز</option></select></label><label class="field-card"><span><b>ساعت یادآوری</b><small>زمان دریافت اعلان</small></span><input type="time" value="10:00"></label><h2 class="preview-title">پیش‌نمایش اعلان</h2><div class="notification-preview"><div class="notification-brand"><svg><use href="#i-heart-fill"/></svg><b>یادتو</b><span>۲ دقیقه پیش</span></div><p><b>فردا تولد سارا هست!</b><br>فراموش نکنی 🎂</p></div><button class="primary-button save-reminder">ذخیره تنظیمات</button></div>
+        </section>
+        <section class="page" data-page="add">
+          <div class="page-header"><button class="back-button" data-go="home"><svg><use href="#i-chevron-right"/></svg></button><h1>افزودن متولد</h1><span></span></div>
+          <div class="page-inner add-page"><div class="progress"><i></i><i></i></div><p class="form-intro">اطلاعات پایه را وارد کنید.</p><form id="birthdayForm"><button class="photo-picker" type="button"><span><svg><use href="#i-camera"/></svg></span><b>افزودن عکس</b><small>اختیاری</small></button><label class="form-field"><span>نام و نام خانوادگی</span><div><svg><use href="#i-user"/></svg><input name="name" required maxlength="120" placeholder="مثلاً سارا محمدی"></div></label><fieldset><legend>تاریخ تولد شمسی</legend><div class="date-grid"><label>روز<input name="day" inputmode="numeric" required min="1" max="31" type="number" placeholder="۲۵"></label><label>ماه<select name="month" required><option value="">ماه</option><option value="1">فروردین</option><option value="2">اردیبهشت</option><option value="3">خرداد</option><option value="4">تیر</option><option value="5">مرداد</option><option value="6">شهریور</option><option value="7">مهر</option><option value="8">آبان</option><option value="9">آذر</option><option value="10">دی</option><option value="11">بهمن</option><option value="12">اسفند</option></select></label><label>سال <small>(اختیاری)</small><input name="year" inputmode="numeric" min="1250" max="1500" type="number" placeholder="۱۳۷۴"></label></div></fieldset><label class="form-field"><span>گروه</span><div><svg><use href="#i-users"/></svg><select name="group"><option>دوستان</option><option>خانواده</option><option>همکاران</option><option>عمومی</option></select></div></label><label class="form-field"><span>یادداشت <small>(اختیاری)</small></span><div class="textarea"><svg><use href="#i-note"/></svg><textarea name="note" placeholder="مثلاً رابطه، علاقه‌مندی یا ایده هدیه..."></textarea></div></label><label class="favorite-toggle"><span><svg><use href="#i-heart"/></svg><span><b>افزودن به منتخب‌ها</b><small>برای دسترسی سریع‌تر</small></span></span><input class="switch" name="favorite" type="checkbox"></label><button class="primary-button" type="submit">ثبت متولد</button></form></div>
+        </section>
+      </main>
+      <button class="fab" id="addButton" type="button" aria-label="افزودن متولد"><svg><use href="#i-plus"/></svg></button>
+      <nav class="bottom-nav"><button class="nav-item active" data-nav="home"><svg><use href="#i-home"/></svg><span>خانه</span></button><button class="nav-item" data-nav="calendar"><svg><use href="#i-calendar"/></svg><span>تقویم</span></button><button class="nav-item" data-nav="notes"><svg><use href="#i-note"/></svg><span>یادداشت‌ها</span></button><button class="nav-item" data-nav="settings"><svg><use href="#i-settings"/></svg><span>تنظیمات</span></button></nav>
+    </div>
   </div>
-  <div class="sheet-backdrop" id="sheetBackdrop" hidden></div>
-  <section class="sheet" id="addSheet" aria-modal="true" role="dialog" aria-labelledby="sheetTitle" hidden>
-    <div class="sheet-handle"></div><div class="sheet-head"><h2 id="sheetTitle">افزودن متولد</h2><button class="icon-button" id="closeSheet" type="button" aria-label="بستن">×</button></div>
-    <form id="birthdayForm">
-      <label>نام و نام خانوادگی<input name="name" required maxlength="120" placeholder="مثلاً سارا محمدی"></label>
-      <fieldset><legend>تاریخ تولد شمسی</legend><div class="date-grid">
-        <label>روز<input name="day" inputmode="numeric" required min="1" max="31" type="number" placeholder="۲۵"></label>
-        <label>ماه<select name="month" required><option value="">انتخاب</option><option value="1">فروردین</option><option value="2">اردیبهشت</option><option value="3">خرداد</option><option value="4">تیر</option><option value="5">مرداد</option><option value="6">شهریور</option><option value="7">مهر</option><option value="8">آبان</option><option value="9">آذر</option><option value="10">دی</option><option value="11">بهمن</option><option value="12">اسفند</option></select></label>
-        <label>سال <span>(اختیاری)</span><input name="year" inputmode="numeric" min="1250" max="1500" type="number" placeholder="۱۳۷۰"></label>
-      </div></fieldset>
-      <label>گروه<select name="group"><option>عمومی</option><option>خانواده</option><option>دوستان</option><option>همکاران</option></select></label>
-      <label class="toggle-row"><span><b>افزودن به منتخب‌ها</b><small>برای دسترسی سریع‌تر</small></span><input name="favorite" type="checkbox"></label>
-      <button class="primary-button" type="submit">ثبت متولد</button>
-    </form>
-  </section>
-  <div class="toast" id="toast" role="status" hidden></div>
-  <div class="update-banner" id="updateBanner" hidden><span>نسخه جدید یادتو آماده است</span><button id="updateButton">به‌روزرسانی</button></div>
-  <script type="module" src="app.js?v=1.0.0"></script>
+  <div class="drawer-backdrop" id="drawerBackdrop" hidden></div><aside class="drawer" id="drawer" hidden><div class="drawer-head"><div class="brand"><span>یادتو</span><svg><use href="#i-heart-fill"/></svg></div><button class="icon-button" id="closeDrawer"><svg><use href="#i-close"/></svg></button></div><div class="drawer-profile"><span class="avatar avatar-a">ع</span><div><b>علیرضا نجیبا</b><small>مشاهده حساب کاربری</small></div></div><nav><button data-go="home"><svg><use href="#i-home"/></svg>خانه</button><button data-go="calendar"><svg><use href="#i-calendar"/></svg>تقویم تولدها</button><button><svg><use href="#i-users"/></svg>مدیریت گروه‌ها</button><button><svg><use href="#i-crown"/></svg>مدیریت اشتراک</button><button data-go="settings"><svg><use href="#i-settings"/></svg>تنظیمات</button><button><svg><use href="#i-help"/></svg>راهنما و پشتیبانی</button></nav><div class="drawer-version">یادتو · نسخه ۱.۱.۰</div></aside>
+  <div class="toast" id="toast" role="status" hidden></div><div class="update-banner" id="updateBanner" hidden><span>نسخه جدید یادتو آماده است</span><button id="updateButton">به‌روزرسانی</button></div>
+  <svg class="svg-sprite" aria-hidden="true">
+    <symbol id="i-menu" viewBox="0 0 24 24"><path d="M4 7h16M4 12h12M4 17h16"/></symbol><symbol id="i-close" viewBox="0 0 24 24"><path d="m6 6 12 12M18 6 6 18"/></symbol><symbol id="i-search" viewBox="0 0 24 24"><circle cx="11" cy="11" r="6.5"/><path d="m16 16 4 4"/></symbol><symbol id="i-heart" viewBox="0 0 24 24"><path d="M20.8 5.8a5.4 5.4 0 0 0-7.7 0L12 6.9l-1.1-1.1a5.4 5.4 0 0 0-7.7 7.7L12 22l8.8-8.5a5.4 5.4 0 0 0 0-7.7Z"/></symbol><symbol id="i-heart-fill" viewBox="0 0 24 24"><path class="fill" d="M20.8 5.8a5.4 5.4 0 0 0-7.7 0L12 6.9l-1.1-1.1a5.4 5.4 0 0 0-7.7 7.7L12 22l8.8-8.5a5.4 5.4 0 0 0 0-7.7Z"/></symbol><symbol id="i-download" viewBox="0 0 24 24"><path d="M12 3v12m0 0 5-5m-5 5-5-5M5 21h14"/></symbol><symbol id="i-home" viewBox="0 0 24 24"><path d="m3 11 9-8 9 8v9a1 1 0 0 1-1 1h-5v-6H9v6H4a1 1 0 0 1-1-1v-9Z"/></symbol><symbol id="i-calendar" viewBox="0 0 24 24"><rect x="3" y="5" width="18" height="16" rx="3"/><path d="M8 3v4m8-4v4M3 10h18"/></symbol><symbol id="i-note" viewBox="0 0 24 24"><path d="M6 3h9l4 4v14H6a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2Z"/><path d="M14 3v5h5M8 13h8M8 17h6"/></symbol><symbol id="i-settings" viewBox="0 0 24 24"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.7 1.7 0 0 0 .3 1.9l.1.1-2.8 2.8-.1-.1a1.7 1.7 0 0 0-1.9-.3 1.7 1.7 0 0 0-1 1.6v.2h-4V21a1.7 1.7 0 0 0-1-1.6 1.7 1.7 0 0 0-1.9.3l-.1.1L4.2 17l.1-.1a1.7 1.7 0 0 0 .3-1.9A1.7 1.7 0 0 0 3 14H2.8v-4H3a1.7 1.7 0 0 0 1.6-1 1.7 1.7 0 0 0-.3-1.9L4.2 7 7 4.2l.1.1a1.7 1.7 0 0 0 1.9.3A1.7 1.7 0 0 0 10 3V2.8h4V3a1.7 1.7 0 0 0 1 1.6 1.7 1.7 0 0 0 1.9-.3l.1-.1L19.8 7l-.1.1a1.7 1.7 0 0 0-.3 1.9 1.7 1.7 0 0 0 1.6 1h.2v4H21a1.7 1.7 0 0 0-1.6 1Z"/></symbol><symbol id="i-plus" viewBox="0 0 24 24"><path d="M12 5v14M5 12h14"/></symbol><symbol id="i-gift" viewBox="0 0 24 24"><path d="M4 10h16v11H4zM2 7h20v4H2zM12 7v14"/><path d="M12 7H8.5a2.5 2.5 0 1 1 2.5-2.5C11 6 12 7 12 7Zm0 0h3.5A2.5 2.5 0 1 0 13 4.5C13 6 12 7 12 7Z"/></symbol><symbol id="i-user" viewBox="0 0 24 24"><circle cx="12" cy="8" r="4"/><path d="M4 21c0-4.4 3.6-7 8-7s8 2.6 8 7"/></symbol><symbol id="i-users" viewBox="0 0 24 24"><circle cx="9" cy="8" r="3.5"/><path d="M2 20c0-4 3-6.5 7-6.5s7 2.5 7 6.5M16 5a3.5 3.5 0 0 1 0 7M17 14c3 .5 5 2.6 5 6"/></symbol><symbol id="i-camera" viewBox="0 0 24 24"><path d="M4 7h4l1.5-2h5L16 7h4a2 2 0 0 1 2 2v10H2V9a2 2 0 0 1 2-2Z"/><circle cx="12" cy="13" r="4"/></symbol><symbol id="i-bell" viewBox="0 0 24 24"><path d="M18 9a6 6 0 0 0-12 0c0 7-3 7-3 9h18c0-2-3-2-3-9ZM10 21h4"/></symbol><symbol id="i-message" viewBox="0 0 24 24"><path d="M21 15a4 4 0 0 1-4 4H8l-5 3V7a4 4 0 0 1 4-4h10a4 4 0 0 1 4 4v8Z"/></symbol><symbol id="i-chevron-right" viewBox="0 0 24 24"><path d="m9 18 6-6-6-6"/></symbol><symbol id="i-chevron-left" viewBox="0 0 24 24"><path d="m15 18-6-6 6-6"/></symbol><symbol id="i-more" viewBox="0 0 24 24"><circle class="fill" cx="12" cy="5" r="1.8"/><circle class="fill" cx="12" cy="12" r="1.8"/><circle class="fill" cx="12" cy="19" r="1.8"/></symbol><symbol id="i-moon" viewBox="0 0 24 24"><path d="M20 15.5A8.5 8.5 0 0 1 8.5 4 8.5 8.5 0 1 0 20 15.5Z"/></symbol><symbol id="i-crown" viewBox="0 0 24 24"><path d="m3 6 5 4 4-6 4 6 5-4-2 12H5L3 6Zm3 15h12"/></symbol><symbol id="i-help" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M9.8 9a2.5 2.5 0 1 1 3.2 2.4c-.8.3-1 1-1 1.8M12 17h.01"/></symbol><symbol id="i-balloon" viewBox="0 0 24 24"><ellipse cx="12" cy="9" rx="6" ry="7"/><path d="m10 16 2 3 2-3m-2 3v3"/></symbol>
+  </svg>
+  <script type="module" src="app.js?v=1.1.0"></script>
 </body>
 </html>
