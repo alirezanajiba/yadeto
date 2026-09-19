@@ -1,0 +1,65 @@
+name: Deploy Yadeto
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - "apps/app/**"
+      - "apps/admin/**"
+      - "VERSION"
+      - ".github/workflows/deploy.yml"
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: yadeto-production-deploy
+  cancel-in-progress: true
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    timeout-minutes: 8
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Validate release
+        run: |
+          test -f VERSION
+          test -f apps/app/index.html
+          test -f apps/admin/index.html
+          grep -q "$(cat VERSION)" apps/app/version.json
+          grep -q "$(cat VERSION)" apps/admin/version.json
+
+      - name: Deploy app
+        env:
+          FTP_SERVER: ${{ secrets.FTP_APP_SERVER }}
+          FTP_PORT: ${{ secrets.FTP_APP_PORT }}
+          FTP_USERNAME: ${{ secrets.FTP_APP_USERNAME }}
+          FTP_PASSWORD: ${{ secrets.FTP_APP_PASSWORD }}
+        run: |
+          cd apps/app
+          find . -type f -print0 | while IFS= read -r -d '' file; do
+            remote="${file#./}"
+            curl --fail --show-error --silent --insecure --ssl-reqd --ftp-pasv \
+              --connect-timeout 20 --max-time 180 --ftp-create-dirs \
+              --user "$FTP_USERNAME:$FTP_PASSWORD" --upload-file "$file" \
+              "ftp://$FTP_SERVER:$FTP_PORT/$remote"
+          done
+
+      - name: Deploy admin
+        env:
+          FTP_SERVER: ${{ secrets.FTP_ADMIN_SERVER }}
+          FTP_PORT: ${{ secrets.FTP_ADMIN_PORT }}
+          FTP_USERNAME: ${{ secrets.FTP_ADMIN_USERNAME }}
+          FTP_PASSWORD: ${{ secrets.FTP_ADMIN_PASSWORD }}
+        run: |
+          cd apps/admin
+          find . -type f -print0 | while IFS= read -r -d '' file; do
+            remote="${file#./}"
+            curl --fail --show-error --silent --insecure --ssl-reqd --ftp-pasv \
+              --connect-timeout 20 --max-time 180 --ftp-create-dirs \
+              --user "$FTP_USERNAME:$FTP_PASSWORD" --upload-file "$file" \
+              "ftp://$FTP_SERVER:$FTP_PORT/$remote"
+          done

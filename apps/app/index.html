@@ -1,0 +1,61 @@
+<!doctype html>
+<html lang="fa" dir="rtl">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,viewport-fit=cover">
+  <meta name="theme-color" content="#27737A">
+  <meta name="description" content="یادتو؛ یادآور تولد فارسی">
+  <link rel="manifest" href="manifest.webmanifest">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Vazirmatn:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="styles.css?v=1.0.0">
+  <title>یادتو</title>
+</head>
+<body>
+  <div class="app-shell">
+    <header class="topbar">
+      <button class="icon-button" type="button" aria-label="باز کردن منو">☰</button>
+      <div class="brand">یادتو <span>♥</span></div>
+      <button class="icon-button" id="installButton" type="button" aria-label="نصب اپلیکیشن" hidden>⇩</button>
+    </header>
+    <main>
+      <section class="hero">
+        <div><span class="eyebrow">نسخه اولیه توسعه</span><h1>هیچ تولدی از یادت نمی‌ره</h1><p>تولد آدم‌های مهم زندگیت را ثبت کن و به‌موقع یادآوری بگیر.</p></div>
+        <div class="hero-art" aria-hidden="true"><span>♡</span><b>🎂</b></div>
+      </section>
+      <section class="search-section">
+        <label class="search-box"><span>⌕</span><input id="searchInput" type="search" placeholder="جست‌وجوی نام یا مناسبت..." autocomplete="off"></label>
+        <div class="filters" id="filters" aria-label="فیلتر تولدها">
+          <button class="filter active" data-filter="all">همه</button><button class="filter" data-filter="today">امروز</button><button class="filter" data-filter="week">هفته آینده</button><button class="filter" data-filter="month">ماه آینده</button>
+        </div>
+      </section>
+      <section class="section-head"><div><h2>نزدیک‌ترین تولدها</h2><p id="resultCount"></p></div><button class="text-button" id="favoriteButton" type="button">منتخب‌ها ☆</button></section>
+      <section class="birthday-list" id="birthdayList" aria-live="polite"></section>
+      <section class="empty-state" id="emptyState" hidden><div>🎈</div><h3>تولدی پیدا نشد</h3><p>فیلتر را تغییر بده یا یک متولد جدید اضافه کن.</p></section>
+    </main>
+    <button class="fab" id="addButton" type="button" aria-label="افزودن متولد">＋</button>
+    <nav class="bottom-nav" aria-label="ناوبری اصلی">
+      <button class="nav-item active"><span>⌂</span>خانه</button><button class="nav-item"><span>▦</span>تقویم</button><button class="nav-item"><span>▤</span>یادداشت‌ها</button><button class="nav-item"><span>⚙</span>تنظیمات</button>
+    </nav>
+  </div>
+  <div class="sheet-backdrop" id="sheetBackdrop" hidden></div>
+  <section class="sheet" id="addSheet" aria-modal="true" role="dialog" aria-labelledby="sheetTitle" hidden>
+    <div class="sheet-handle"></div><div class="sheet-head"><h2 id="sheetTitle">افزودن متولد</h2><button class="icon-button" id="closeSheet" type="button" aria-label="بستن">×</button></div>
+    <form id="birthdayForm">
+      <label>نام و نام خانوادگی<input name="name" required maxlength="120" placeholder="مثلاً سارا محمدی"></label>
+      <fieldset><legend>تاریخ تولد شمسی</legend><div class="date-grid">
+        <label>روز<input name="day" inputmode="numeric" required min="1" max="31" type="number" placeholder="۲۵"></label>
+        <label>ماه<select name="month" required><option value="">انتخاب</option><option value="1">فروردین</option><option value="2">اردیبهشت</option><option value="3">خرداد</option><option value="4">تیر</option><option value="5">مرداد</option><option value="6">شهریور</option><option value="7">مهر</option><option value="8">آبان</option><option value="9">آذر</option><option value="10">دی</option><option value="11">بهمن</option><option value="12">اسفند</option></select></label>
+        <label>سال <span>(اختیاری)</span><input name="year" inputmode="numeric" min="1250" max="1500" type="number" placeholder="۱۳۷۰"></label>
+      </div></fieldset>
+      <label>گروه<select name="group"><option>عمومی</option><option>خانواده</option><option>دوستان</option><option>همکاران</option></select></label>
+      <label class="toggle-row"><span><b>افزودن به منتخب‌ها</b><small>برای دسترسی سریع‌تر</small></span><input name="favorite" type="checkbox"></label>
+      <button class="primary-button" type="submit">ثبت متولد</button>
+    </form>
+  </section>
+  <div class="toast" id="toast" role="status" hidden></div>
+  <div class="update-banner" id="updateBanner" hidden><span>نسخه جدید یادتو آماده است</span><button id="updateButton">به‌روزرسانی</button></div>
+  <script type="module" src="app.js?v=1.0.0"></script>
+</body>
+</html>

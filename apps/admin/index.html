@@ -1,0 +1,19 @@
+<!doctype html>
+<html lang="fa" dir="rtl">
+<head>
+  <meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="theme-color" content="#194C55">
+  <link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link href="https://fonts.googleapis.com/css2?family=Vazirmatn:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="styles.css?v=1.0.0"><title>مدیریت یادتو</title>
+</head>
+<body>
+  <aside class="sidebar"><div class="logo">یادتو <span>♥</span><small>پنل مدیریت</small></div><nav><button class="active">⌂ داشبورد</button><button>◎ گزارش‌ها</button><button>⚙ تنظیمات</button></nav><div class="sidebar-foot"><span>نسخه ۱.۰.۰</span><button>خروج</button></div></aside>
+  <main class="content">
+    <header><div><h1>داشبورد مدیریت</h1><p>نمای کلی سرویس و دسترسی به بخش‌های مدیریتی</p></div><div class="admin-profile"><div>م</div><span><b>مدیر سیستم</b><small>دسترسی کامل</small></span></div></header>
+    <section class="notice"><span>✓</span><div><b>فوندیشن پنل مدیریت فعال شد</b><p>هر بخش به‌صورت ماژول مستقل توسعه پیدا می‌کند.</p></div></section>
+    <section class="stats"><article><span>کاربران</span><b>۰</b><small>پس از اتصال دیتابیس</small></article><article><span>متولدها</span><b>۰</b><small>پس از اتصال دیتابیس</small></article><article><span>یادآوری امروز</span><b>۰</b><small>در انتظار صف</small></article><article><span>پیامک ناموفق</span><b>۰</b><small>نیازمند بررسی</small></article></section>
+    <div class="section-title"><div><h2>بخش‌های مدیریتی</h2><p>برای ورود به هر بخش، کارت مربوط به آن را انتخاب کنید.</p></div><label class="search"><span>⌕</span><input id="moduleSearch" placeholder="جست‌وجوی بخش..."></label></div>
+    <section class="modules" id="moduleGrid"></section>
+  </main>
+  <div class="modal-backdrop" id="modalBackdrop" hidden></div><section class="modal" id="moduleModal" hidden><button id="closeModal">×</button><div id="modalIcon"></div><h2 id="modalTitle"></h2><p>ساختار این بخش آماده شده و قابلیت‌های عملیاتی آن در نسخه‌های بعدی روی همین ماژول اضافه می‌شود.</p><span>وضعیت: در حال توسعه</span></section>
+  <script type="module" src="admin.js?v=1.0.0"></script>
+</body></html>
