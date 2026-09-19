@@ -16,7 +16,7 @@ if ($method === 'GET' && preg_match('#/api/?(?:health)?$#', $path)) {
     echo json_encode([
         'ok' => true,
         'service' => 'yadeto-api',
-        'version' => '1.1.0',
+        'version' => '1.2.0',
         'time' => gmdate('c'),
     ], JSON_UNESCAPED_UNICODE | JSON_UNESCAPED_SLASHES);
     exit;
