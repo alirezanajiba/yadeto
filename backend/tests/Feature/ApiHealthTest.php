@@ -13,7 +13,7 @@ class ApiHealthTest extends TestCase
             ->assertJson([
                 'status' => 'ok',
                 'service' => 'yadeto-api',
-                'version' => '2.1.0',
+                'version' => '2.2.0',
             ]);
     }
 }

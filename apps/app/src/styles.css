@@ -1,11 +1,21 @@
 :root{--teal:#2b7c82;--teal-dark:#18545c;--teal-mid:#5d9da0;--teal-soft:#e8f3f2;--coral:#f47b50;--coral-dark:#d95e38;--coral-soft:#fff0e9;--peach:#f8dfd2;--cream:#fdfaf5;--surface:#fffdfa;--text:#17343d;--muted:#788185;--border:#ebe4dc;--blue-soft:#eaf2f5;--sand:#f5efe2;--shadow:0 12px 34px rgba(42,73,76,.08);--shadow-soft:0 5px 18px rgba(42,73,76,.06);--safe-bottom:env(safe-area-inset-bottom,0px)}
 .react-app-root{min-height:100dvh}
 
-/* v2.1 home timeline */
+/* v2.2 fixed home controls and scrollable timeline */
 html,body,#root,.react-app-root{height:100%;overflow:hidden;overscroll-behavior:none}
 body{position:fixed;inset:0;width:100%}
-.react-app-root .app-shell{height:100dvh;min-height:0;overflow-y:auto;overscroll-behavior-y:none;-webkit-overflow-scrolling:touch}
-.react-app-root .product{padding-bottom:94px}
+.react-app-root .app-shell{height:100dvh;min-height:0;overflow:hidden;overscroll-behavior-y:none;-webkit-overflow-scrolling:touch}
+.react-app-root .product{height:100%;min-height:0;padding-bottom:0;display:flex;flex-direction:column;overflow:hidden}
+.react-app-root .topbar{flex:none}
+.react-app-root .pages{flex:1;min-height:0;overflow-y:auto;overscroll-behavior-y:contain}
+.react-app-root .product.home-active .pages{overflow:hidden}
+.react-app-root .product.home-active .page[data-page="home"],.react-app-root .home-page{height:100%;min-height:0}
+.react-app-root .home-page{display:flex;flex-direction:column;padding:0 16px}
+.home-fixed{position:relative;z-index:1;flex:none;padding-top:10px;isolation:isolate}
+.home-fixed:before{content:"";position:absolute;z-index:-1;inset:-80px -16px -7px;background:linear-gradient(rgba(253,250,245,.7),rgba(253,250,245,.9)),url('/images/home-header-illustration.png') center/cover no-repeat;opacity:.44;pointer-events:none}
+.react-app-root .home-page>.birthday-list{flex:1;min-height:0;overflow-y:auto;overscroll-behavior-y:contain;-webkit-overflow-scrolling:touch;padding-bottom:94px;scrollbar-width:none}
+.react-app-root .home-page>.birthday-list::-webkit-scrollbar{display:none}
+.react-app-root .home-page>.empty-state{flex:1;overflow-y:auto}
 .topbar-actions{display:flex;align-items:center;direction:ltr}
 .calendar-shortcut{color:var(--teal);background:var(--teal-soft)}
 .react-app-root .filters{gap:7px}
@@ -22,13 +32,14 @@ body{position:fixed;inset:0;width:100%}
 .react-app-root .birthday-card{padding:10px 11px;display:flex;justify-content:space-between;gap:8px}
 .birthday-main{min-width:0;flex:1;border:0;background:transparent;display:flex;align-items:center;gap:11px;padding:0;color:var(--text);text-align:right}
 .react-app-root .birthday-info span{font-size:13px;font-weight:600;color:#687579;margin-top:3px}
-.birthday-side{display:flex;align-items:center;gap:5px;direction:ltr;flex:none}
+.birthday-side{display:flex;align-items:center;gap:5px;direction:rtl;flex:none}
 .days-box{width:66px;min-height:49px;border-radius:15px;background:linear-gradient(145deg,#eaf5f3,#f6faf8);border:1px solid rgba(43,124,130,.1);display:grid;place-content:center;text-align:center;color:var(--teal-dark);line-height:1.15}
 .days-box b{font-size:15px;font-weight:800}
 .days-box small{font-size:9px;margin-top:3px;color:#668083}
 .card-favorite{width:38px;height:38px;border:0;border-radius:13px;background:transparent;color:var(--coral);display:grid;place-items:center;padding:0}
 .card-favorite svg{width:22px;height:22px}
-.card-favorite.active{background:var(--coral-soft)}
+.card-favorite.active{background:transparent;color:var(--coral)}
+.card-favorite.active svg{transform:scale(1.06)}
 .bottom-nav{display:none!important}
 .react-app-root .fab{right:max(34px,calc((100vw - 520px)/2 + 34px));bottom:calc(18px + var(--safe-bottom))}
 *{box-sizing:border-box}html{direction:rtl;background:#eaf2f1}body{margin:0;color:var(--text);font-family:Vazirmatn,Tahoma,sans-serif;background:radial-gradient(circle at 5% 12%,#d9ebe9 0,transparent 25%),radial-gradient(circle at 95% 88%,#f8e4d8 0,transparent 24%),#f3f5f1;min-height:100dvh}button,input,select,textarea{font-family:inherit}.svg-sprite{position:absolute;width:0;height:0;overflow:hidden}.app-shell{width:min(100%,520px);min-height:100dvh;margin:auto;background:var(--cream);position:relative;overflow:hidden;box-shadow:0 0 42px rgba(27,68,72,.12)}svg{width:24px;height:24px;fill:none;stroke:currentColor;stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round}.fill{fill:currentColor;stroke:none}[hidden]{display:none!important}
