@@ -1,5 +1,5 @@
 export function initializeApp(){
-const VERSION='2.2.3';
+const VERSION='2.2.4';
 const STORAGE_KEY='yadeto.birthdays.v1';
 const monthNames=['فروردین','اردیبهشت','خرداد','تیر','مرداد','شهریور','مهر','آبان','آذر','دی','بهمن','اسفند'];
 const faPlain=new Intl.NumberFormat('fa-IR',{useGrouping:false});
@@ -15,6 +15,7 @@ const qs=(s,p=document)=>p.querySelector(s);const qsa=(s,p=document)=>[...p.quer
 const list=qs('#birthdayList'),empty=qs('#emptyState'),toast=qs('#toast');
 const onboarding=qs('#onboarding'),product=qs('#product'),topbar=qs('.topbar'),fab=qs('#addButton'),scroller=qs('.app-shell');
 const sheetBackdrop=qs('#sheetBackdrop'),selectSheet=qs('#selectSheet'),dateSheet=qs('#dateSheet'),infoSheet=qs('#infoSheet');
+const updateBackdrop=qs('#updateBackdrop'),updateSheet=qs('#updateSheet'),updateVersion=qs('#updateVersion'),updateChanges=qs('#updateChanges');
 const swipePages=['home','calendar'];let activeSelectTrigger=null;let touchStart=null;let suppressClick=false;let shownMonth=currentJalali().month;
 function loadItems(){try{const data=JSON.parse(localStorage.getItem(STORAGE_KEY));return Array.isArray(data)?data:seed}catch{return seed}}
 function saveItems(){localStorage.setItem(STORAGE_KEY,JSON.stringify(state.items))}
@@ -66,7 +67,12 @@ qs('#detailContent').addEventListener('click',e=>{const button=e.target.closest(
 qsa('.calendar-title button').forEach((button,index)=>button.addEventListener('click',()=>{shownMonth+=index===0?-1:1;if(shownMonth<1)shownMonth=12;if(shownMonth>12)shownMonth=1;renderCalendar();showToast(`تقویم ${monthNames[shownMonth-1]} نمایش داده شد`)}));
 qs('#pages').addEventListener('touchstart',e=>{if(!swipePages.includes(state.currentPage)||!selectSheet.hidden||!dateSheet.hidden||!infoSheet.hidden)return;const t=e.changedTouches[0];touchStart={x:t.clientX,y:t.clientY,target:e.target}},{passive:true});qs('#pages').addEventListener('touchend',e=>{if(!touchStart||touchStart.target.closest('input,textarea,select,.filters,.date-wheels')){touchStart=null;return}const t=e.changedTouches[0],dx=t.clientX-touchStart.x,dy=t.clientY-touchStart.y;touchStart=null;if(Math.abs(dx)<65||Math.abs(dx)<Math.abs(dy)*1.25)return;suppressClick=true;setTimeout(()=>suppressClick=false,450);const index=swipePages.indexOf(state.currentPage);if(dx>0&&index<swipePages.length-1)go(swipePages[index+1]);if(dx<0&&index>0)go(swipePages[index-1])},{passive:true});document.addEventListener('click',e=>{if(!suppressClick)return;suppressClick=false;e.preventDefault();e.stopImmediatePropagation()},true);
 window.addEventListener('beforeinstallprompt',e=>{e.preventDefault();state.deferredPrompt=e;qs('#installButton').hidden=false});qs('#installButton').addEventListener('click',async()=>{if(!state.deferredPrompt)return;state.deferredPrompt.prompt();await state.deferredPrompt.userChoice;state.deferredPrompt=null;qs('#installButton').hidden=true});
-if('serviceWorker' in navigator){navigator.serviceWorker.register(`sw.js?v=${VERSION}`).then(reg=>{reg.update();reg.addEventListener('updatefound',()=>{const worker=reg.installing;worker?.addEventListener('statechange',()=>{if(worker.state==='installed'&&navigator.serviceWorker.controller)qs('#updateBanner').hidden=false})})});navigator.serviceWorker.addEventListener('controllerchange',()=>location.reload())}
-qs('#updateButton').addEventListener('click',()=>navigator.serviceWorker.getRegistration().then(reg=>{if(reg?.waiting)reg.waiting.postMessage({type:'SKIP_WAITING'});else location.reload()}));
+function isNewerVersion(next,current){const a=String(next).split('.').map(Number),b=String(current).split('.').map(Number);for(let i=0;i<Math.max(a.length,b.length);i++){if((a[i]||0)!==(b[i]||0))return (a[i]||0)>(b[i]||0)}return false}
+function showUpdatePrompt(meta){if(!isNewerVersion(meta.version,VERSION)||sessionStorage.getItem('yadeto.dismissedUpdate')===meta.version)return;updateVersion.textContent=`نسخه ${meta.version}`;const changes=Array.isArray(meta.changes)&&meta.changes.length?meta.changes:['بهبود عملکرد و تجربه کاربری اپلیکیشن'];updateChanges.innerHTML=changes.map(item=>`<li>${escapeHtml(item)}</li>`).join('');updateBackdrop.hidden=false;updateSheet.hidden=false}
+async function checkForUpdates(){try{const response=await fetch(`/version.json?t=${Date.now()}`,{cache:'no-store'});if(response.ok)showUpdatePrompt(await response.json())}catch{}if('serviceWorker' in navigator)navigator.serviceWorker.getRegistration().then(reg=>reg?.update()).catch(()=>{})}
+if('serviceWorker' in navigator){navigator.serviceWorker.register(`sw.js?v=${VERSION}`).then(reg=>{reg.update();reg.addEventListener('updatefound',()=>{const worker=reg.installing;worker?.addEventListener('statechange',()=>{if(worker.state==='installed'&&navigator.serviceWorker.controller)checkForUpdates()})})});navigator.serviceWorker.addEventListener('controllerchange',()=>location.reload())}
+setTimeout(checkForUpdates,1800);setInterval(checkForUpdates,15000);document.addEventListener('visibilitychange',()=>{if(document.visibilityState==='visible')checkForUpdates()});window.addEventListener('focus',checkForUpdates);window.addEventListener('online',checkForUpdates);
+qs('#updateButton').addEventListener('click',async e=>{e.currentTarget.disabled=true;e.currentTarget.textContent='در حال به روزرسانی...';const reg='serviceWorker' in navigator?await navigator.serviceWorker.getRegistration():null;await reg?.update();if(reg?.waiting)reg.waiting.postMessage({type:'SKIP_WAITING'});else location.reload()});
+qs('#updateLaterButton').addEventListener('click',()=>{const version=updateVersion.textContent.replace('نسخه ','');sessionStorage.setItem('yadeto.dismissedUpdate',version);updateBackdrop.hidden=true;updateSheet.hidden=true});
 if(localStorage.getItem('yadeto.onboarded'))showProduct();
 }
