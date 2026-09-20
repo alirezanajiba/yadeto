@@ -5,14 +5,16 @@
 html,body,#root,.react-app-root{height:100%;overflow:hidden;overscroll-behavior:none}
 body{position:fixed;inset:0;width:100%}
 .react-app-root .app-shell{height:100dvh;min-height:0;overflow:hidden;overscroll-behavior-y:none;-webkit-overflow-scrolling:touch}
-.react-app-root .product{height:100%;min-height:0;padding-bottom:0;display:flex;flex-direction:column;overflow:hidden}
+.react-app-root .product{height:100%;min-height:0;padding-bottom:0;display:flex;flex-direction:column;overflow:hidden;position:relative}
+.react-app-root .product.home-active:before{content:"";position:absolute;z-index:0;top:0;right:0;left:0;height:265px;background:url('/images/home-header-illustration.png') center/cover no-repeat;opacity:.46;pointer-events:none}
+.react-app-root .product.home-active>.topbar,.react-app-root .product.home-active>.pages{position:relative;z-index:1}
 .react-app-root .topbar{flex:none}
 .react-app-root .pages{flex:1;min-height:0;overflow-y:auto;overscroll-behavior-y:contain}
 .react-app-root .product.home-active .pages{overflow:hidden}
 .react-app-root .product.home-active .page[data-page="home"],.react-app-root .home-page{height:100%;min-height:0}
 .react-app-root .home-page{display:flex;flex-direction:column;padding:0 16px}
-.home-fixed{position:relative;z-index:1;flex:none;padding-top:10px;isolation:isolate}
-.home-fixed:before{content:"";position:absolute;z-index:-1;inset:-80px -16px -7px;background:linear-gradient(rgba(253,250,245,.7),rgba(253,250,245,.9)),url('/images/home-header-illustration.png') center/cover no-repeat;opacity:.44;pointer-events:none}
+.home-fixed{position:relative;z-index:1;flex:none;padding-top:10px}
+.home-fixed:after{content:"";position:absolute;right:-16px;bottom:-1px;left:-16px;height:1px;background:linear-gradient(90deg,transparent,rgba(43,124,130,.3) 22%,rgba(43,124,130,.3) 78%,transparent);box-shadow:0 5px 12px rgba(43,124,130,.14);pointer-events:none}
 .react-app-root .home-page>.birthday-list{flex:1;min-height:0;overflow-y:auto;overscroll-behavior-y:contain;-webkit-overflow-scrolling:touch;padding-bottom:94px;scrollbar-width:none}
 .react-app-root .home-page>.birthday-list::-webkit-scrollbar{display:none}
 .react-app-root .home-page>.empty-state{flex:1;overflow-y:auto}
@@ -35,6 +37,7 @@ body{position:fixed;inset:0;width:100%}
 .birthday-side{display:flex;align-items:center;gap:5px;direction:rtl;flex:none}
 .days-box{width:66px;min-height:49px;border-radius:15px;background:linear-gradient(145deg,#eaf5f3,#f6faf8);border:1px solid rgba(43,124,130,.1);display:grid;place-content:center;text-align:center;color:var(--teal-dark);line-height:1.15}
 .days-box b{font-size:15px;font-weight:800}
+.days-box.past b{font-size:13px}
 .days-box small{font-size:9px;margin-top:3px;color:#668083}
 .card-favorite{width:38px;height:38px;border:0;border-radius:13px;background:transparent;color:var(--coral);display:grid;place-items:center;padding:0}
 .card-favorite svg{width:22px;height:22px}
