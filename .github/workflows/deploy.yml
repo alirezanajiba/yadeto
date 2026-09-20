@@ -56,13 +56,20 @@ jobs:
           FTP_PASSWORD: ${{ secrets.FTP_APP_PASSWORD }}
         run: |
           cd apps/app/dist
-          find . -type f -print0 | while IFS= read -r -d '' file; do
+          upload_file() {
+            file="$1"
             remote="${file#./}"
             curl --fail --show-error --silent --insecure --ssl-reqd --ftp-pasv \
               --connect-timeout 20 --max-time 180 --ftp-create-dirs \
               --user "$FTP_USERNAME:$FTP_PASSWORD" --upload-file "$file" \
               "ftp://$FTP_SERVER:$FTP_PORT/$remote"
+          }
+          find . -type f ! -path './sw.js' ! -path './index.html' ! -path './version.json' -print0 | while IFS= read -r -d '' file; do
+            upload_file "$file"
           done
+          upload_file ./index.html
+          upload_file ./sw.js
+          upload_file ./version.json
 
       - name: Deploy admin
         env:
@@ -72,10 +79,16 @@ jobs:
           FTP_PASSWORD: ${{ secrets.FTP_ADMIN_PASSWORD }}
         run: |
           cd apps/admin/dist
-          find . -type f -print0 | while IFS= read -r -d '' file; do
+          upload_file() {
+            file="$1"
             remote="${file#./}"
             curl --fail --show-error --silent --insecure --ssl-reqd --ftp-pasv \
               --connect-timeout 20 --max-time 180 --ftp-create-dirs \
               --user "$FTP_USERNAME:$FTP_PASSWORD" --upload-file "$file" \
               "ftp://$FTP_SERVER:$FTP_PORT/$remote"
+          }
+          find . -type f ! -path './index.html' ! -path './version.json' -print0 | while IFS= read -r -d '' file; do
+            upload_file "$file"
           done
+          upload_file ./index.html
+          upload_file ./version.json

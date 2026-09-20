@@ -92,10 +92,11 @@ body{position:fixed;inset:0;width:100%}
 @media(hover:none){.icon-button:hover,.back-button:hover,.header-action:hover{background:transparent}.react-app-root .calendar-shortcut:hover{background:#d7e8e1}.year-calendar-day.has-birthdays:hover{background:transparent}.drawer nav button:hover{background:transparent;color:var(--text)}}
 .drawer{width:min(292px,76%)}
 
-/* v2.4.1 birthday detail artwork and readability */
-.detail-visual-zone{position:relative;isolation:isolate;margin:0 -16px 18px;padding:0 16px 20px;overflow:hidden;background:linear-gradient(180deg,rgba(255,250,245,.02) 37%,rgba(253,250,245,.64) 72%,#fdfaf5 100%),url('/images/detail/birthday-hero-v2.webp') center top/cover no-repeat}
-.detail-visual-zone:after{content:"";position:absolute;z-index:-1;inset:auto 0 0;height:44%;background:linear-gradient(180deg,transparent,rgba(253,250,245,.88));pointer-events:none}
-.detail-visual-zone .detail-hero{min-height:286px;margin:0 -16px;padding:88px 20px 16px;overflow:visible;background:none}
+/* v2.4.2 birthday detail artwork and readability */
+.detail-visual-zone{position:relative;isolation:isolate;margin:0 -16px 18px;padding:0 16px 20px;overflow:hidden;background:linear-gradient(180deg,#f8eee2 0%,#fbf4eb 53%,#fdfaf5 100%)}
+.detail-visual-zone:before{content:"";position:absolute;z-index:0;inset:0 0 auto;aspect-ratio:2/1;background:url('/images/detail/birthday-hero-v2.webp') center top/100% 100% no-repeat;pointer-events:none}
+.detail-visual-zone:after{content:"";position:absolute;z-index:0;inset:110px 0 0;background:linear-gradient(180deg,transparent 0,rgba(251,244,235,.22) 20%,rgba(253,250,245,.92) 76%,#fdfaf5 100%);pointer-events:none}
+.detail-visual-zone .detail-hero{position:relative;z-index:1;min-height:286px;margin:0 -16px;padding:88px 20px 16px;overflow:visible;background:none}
 .detail-visual-zone .detail-hero:before,.detail-visual-zone .detail-hero:after,.detail-visual-zone .hero-balloon,.detail-visual-zone .confetti,.detail-visual-zone .hero-cake{display:none}
 .detail-visual-zone .detail-avatar{width:104px;height:104px;margin:27px auto 10px;border:6px solid rgba(255,255,255,.94);font-size:34px;box-shadow:0 13px 30px rgba(31,69,73,.24)}
 .detail-visual-zone .detail-hero h2{font-size:27px;line-height:1.45;text-shadow:0 1px 8px rgba(255,255,255,.9)}
