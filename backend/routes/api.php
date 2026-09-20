@@ -7,7 +7,7 @@ Route::prefix('v1')->group(function (): void {
     Route::get('/health', fn () => response()->json([
         'status' => 'ok',
         'service' => 'yadeto-api',
-        'version' => '2.2.1',
+        'version' => '2.2.2',
     ]));
 
     Route::middleware('auth:sanctum')->group(function (): void {
