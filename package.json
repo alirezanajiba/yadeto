@@ -1,0 +1,26 @@
+{
+  "name": "yadeto",
+  "private": true,
+  "version": "2.1.0",
+  "workspaces": [
+    "apps/app",
+    "apps/admin"
+  ],
+  "scripts": {
+    "dev:app": "npm run dev --workspace @yadeto/app",
+    "dev:admin": "npm run dev --workspace @yadeto/admin",
+    "build": "npm run build:app && npm run build:admin",
+    "build:app": "npm run build --workspace @yadeto/app",
+    "build:admin": "npm run build --workspace @yadeto/admin",
+    "typecheck": "npm run typecheck --workspace @yadeto/app && npm run typecheck --workspace @yadeto/admin"
+  },
+  "devDependencies": {
+    "@vitejs/plugin-react": "latest",
+    "typescript": "latest",
+    "vite": "latest"
+  },
+  "dependencies": {
+    "react": "latest",
+    "react-dom": "latest"
+  }
+}

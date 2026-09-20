@@ -8,6 +8,8 @@
 
 پروژه یک Modular Monolith دارد. دامنه‌ها شامل Identity، Birthdays، Reminders، Messaging، Billing، Content و Administration هستند. فروشگاه در فاز فعلی تعریف نشده است.
 
+دو فرانت‌اند مستقل با React 19، TypeScript و Vite ساخته می‌شوند. بک‌اند Laravel 13 فقط از طریق API نسخه‌بندی‌شده در `api.yadeto.ir/api/v1` در دسترس است. احراز هویت First-party SPA با Sanctum انجام می‌شود.
+
 ## قواعد مقیاس‌پذیری
 
 - همه لیست‌های حجیم با Pagination سمت سرور
@@ -20,4 +22,4 @@
 
 ## مسیر مهاجرت از cPanel
 
-فرانت‌اندها Static هستند. API به تنظیمات cPanel وابسته نیست و با انتقال Environment Variables و دیتابیس روی سرور اختصاصی اجرا می‌شود. Queue و Cache ابتدا Adapter دارند و بعداً Redis و Worker دائمی می‌توانند جایگزین Cron شوند.
+فرانت‌اندها Static هستند و GitHub Actions فقط محتوای `dist` را با FTP منتشر می‌کند. Document Root دامنه API باید به `backend/public` اشاره کند و PHP 8.3 یا جدیدتر داشته باشد. Queue و Cache ابتدا با Database/Cron اجرا می‌شوند و بعداً Redis و Worker دائمی جایگزین آن‌ها خواهند شد.

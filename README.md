@@ -4,16 +4,34 @@
 
 ## نسخه فعلی
 
-`1.0.0` — فوندیشن اپلیکیشن و پنل مدیریت
+`2.1.0` — تایم لاین ماهانه و رابط جدید صفحه خانه
 
 ## ساختار پروژه
 
-- `apps/app`: اپلیکیشن PWA روی `app.yadeto.ir`
-- `apps/admin`: پنل مدیریت روی `admin.yadeto.ir`
+- `apps/app`: اپلیکیشن React/PWA روی `app.yadeto.ir`
+- `apps/admin`: پنل مدیریت React روی `admin.yadeto.ir`
+- `backend`: سرویس Laravel 13 روی `api.yadeto.ir`
 - `database`: طرح اولیه دیتابیس و ایندکس‌ها
 - `docs`: معماری و تصمیم‌های فنی
 
 فروشگاه در فاز فعلی وجود ندارد. خرید اشتراک اپلیکیشن، بعداً به‌عنوان ماژول مستقل اضافه می‌شود.
+
+## توسعه محلی
+
+```bash
+npm install
+npm run dev:app
+npm run dev:admin
+```
+
+برای ساخت هر دو فرانت‌اند:
+
+```bash
+npm run typecheck
+npm run build
+```
+
+متغیر `VITE_API_URL` در هر فرانت‌اند، آدرس API را تعیین می‌کند. مقدار تولیدی پیش‌فرض `https://api.yadeto.ir/api/v1` است.
 
 ## نسخه‌بندی
 

@@ -6,6 +6,9 @@ on:
     paths:
       - "apps/app/**"
       - "apps/admin/**"
+      - "package.json"
+      - "package-lock.json"
+      - "tsconfig.base.json"
       - "VERSION"
       - ".github/workflows/deploy.yml"
   workflow_dispatch:
@@ -20,17 +23,30 @@ concurrency:
 jobs:
   deploy:
     runs-on: ubuntu-latest
-    timeout-minutes: 8
+    timeout-minutes: 12
     steps:
       - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 24
+          cache: npm
+
+      - name: Install frontend dependencies
+        run: npm ci
+
+      - name: Typecheck and build React applications
+        run: |
+          npm run typecheck
+          npm run build
 
       - name: Validate release
         run: |
           test -f VERSION
-          test -f apps/app/index.html
-          test -f apps/admin/index.html
-          grep -q "$(cat VERSION)" apps/app/version.json
-          grep -q "$(cat VERSION)" apps/admin/version.json
+          test -f apps/app/dist/index.html
+          test -f apps/admin/dist/index.html
+          grep -q "$(cat VERSION)" apps/app/dist/version.json
+          grep -q "$(cat VERSION)" apps/admin/dist/version.json
 
       - name: Deploy app
         env:
@@ -39,7 +55,7 @@ jobs:
           FTP_USERNAME: ${{ secrets.FTP_APP_USERNAME }}
           FTP_PASSWORD: ${{ secrets.FTP_APP_PASSWORD }}
         run: |
-          cd apps/app
+          cd apps/app/dist
           find . -type f -print0 | while IFS= read -r -d '' file; do
             remote="${file#./}"
             curl --fail --show-error --silent --insecure --ssl-reqd --ftp-pasv \
@@ -55,7 +71,7 @@ jobs:
           FTP_USERNAME: ${{ secrets.FTP_ADMIN_USERNAME }}
           FTP_PASSWORD: ${{ secrets.FTP_ADMIN_PASSWORD }}
         run: |
-          cd apps/admin
+          cd apps/admin/dist
           find . -type f -print0 | while IFS= read -r -d '' file; do
             remote="${file#./}"
             curl --fail --show-error --silent --insecure --ssl-reqd --ftp-pasv \
