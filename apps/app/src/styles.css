@@ -8,21 +8,22 @@ body{position:fixed;inset:0;width:100%}
 .react-app-root .product{height:100%;min-height:0;padding-bottom:0;display:flex;flex-direction:column;overflow:hidden;position:relative}
 .react-app-root .product.home-active:before{content:"";position:absolute;z-index:0;top:0;right:0;left:0;height:190px;background:url('/images/home-header-illustration.png') center/cover no-repeat;opacity:.46;pointer-events:none}
 .react-app-root .product.home-active>.topbar,.react-app-root .product.home-active>.pages{position:relative;z-index:1}
+.react-app-root .product.home-active .topbar,.react-app-root .product.home-active .home-fixed{background-color:rgba(237,246,242,.5)}
 .react-app-root .topbar{flex:none}
 .react-app-root .pages{flex:1;min-height:0;overflow-y:auto;overscroll-behavior-y:contain}
 .react-app-root .product.home-active .pages{overflow:hidden}
 .react-app-root .product.home-active .page[data-page="home"],.react-app-root .home-page{height:100%;min-height:0}
 .react-app-root .home-page{display:flex;flex-direction:column;padding:0 16px}
 .home-fixed{position:relative;z-index:1;flex:none;padding-top:10px}
-.home-fixed:after{content:"";position:absolute;right:-16px;bottom:0;left:-16px;height:1px;background:rgba(244,123,80,.32);box-shadow:0 4px 10px rgba(83,67,56,.11);pointer-events:none}
+.home-fixed:after{content:"";position:absolute;right:-16px;bottom:0;left:-16px;height:1px;background:rgba(119,126,121,.13);box-shadow:0 3px 8px rgba(83,90,86,.07);pointer-events:none}
 .home-toolbar{display:flex;align-items:center;gap:10px;padding-bottom:8px}
 .home-toolbar .filters{flex:1;min-width:0}
 .home-toolbar .text-button{flex:none;white-space:nowrap;padding:8px 0 8px 4px}
-.react-app-root .home-page>.birthday-list{flex:1;min-height:0;overflow-y:auto;overscroll-behavior-y:contain;-webkit-overflow-scrolling:touch;padding-bottom:94px;scrollbar-width:none}
+.react-app-root .home-page>.birthday-list{position:relative;z-index:1;flex:1;min-height:0;overflow-y:auto;overscroll-behavior-y:contain;-webkit-overflow-scrolling:touch;padding-bottom:94px;scrollbar-width:none;background:#fdf9f3;align-content:start;grid-auto-rows:max-content}
 .react-app-root .home-page>.birthday-list::-webkit-scrollbar{display:none}
-.react-app-root .home-page>.empty-state{flex:1;overflow-y:auto}
+.react-app-root .home-page>.empty-state{position:relative;z-index:1;flex:1;overflow-y:auto;background:#fdf9f3}
 .topbar-actions{display:flex;align-items:center;direction:ltr}
-.calendar-shortcut{color:var(--teal);background:var(--teal-soft)}
+.react-app-root .calendar-shortcut{color:var(--teal-dark);background:#d7e8e1;box-shadow:inset 0 0 0 1px rgba(43,124,130,.08)}
 .react-app-root .filters{gap:7px}
 .react-app-root .filters .filter{background:#e5e5df;color:#596467;box-shadow:none}
 .react-app-root .filters .filter.active{background:var(--teal);color:#fff;box-shadow:none}
