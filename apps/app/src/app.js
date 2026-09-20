@@ -1,5 +1,5 @@
 export function initializeApp(){
-const VERSION='2.3.4';
+const VERSION='2.3.5';
 const STORAGE_KEY='yadeto.birthdays.v1';
 const monthNames=['فروردین','اردیبهشت','خرداد','تیر','مرداد','شهریور','مهر','آبان','آذر','دی','بهمن','اسفند'];
 const faPlain=new Intl.NumberFormat('fa-IR',{useGrouping:false});
@@ -16,7 +16,7 @@ const list=qs('#birthdayList'),empty=qs('#emptyState'),toast=qs('#toast');
 const onboarding=qs('#onboarding'),product=qs('#product'),topbar=qs('.topbar'),fab=qs('#addButton'),scroller=qs('.app-shell');
 const sheetBackdrop=qs('#sheetBackdrop'),selectSheet=qs('#selectSheet'),dateSheet=qs('#dateSheet'),infoSheet=qs('#infoSheet'),calendarBirthdaysSheet=qs('#calendarBirthdaysSheet');
 const updateBackdrop=qs('#updateBackdrop'),updateSheet=qs('#updateSheet'),updateVersion=qs('#updateVersion'),updateChanges=qs('#updateChanges');
-const swipePages=['home','calendar'];let activeSelectTrigger=null;let touchStart=null;let suppressClick=false;
+let activeSelectTrigger=null;
 function loadItems(){try{const data=JSON.parse(localStorage.getItem(STORAGE_KEY));return Array.isArray(data)?data:seed}catch{return seed}}
 function saveItems(){localStorage.setItem(STORAGE_KEY,JSON.stringify(state.items))}
 function escapeHtml(value){return String(value??'').replace(/[&<>'"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;',"'":'&#39;','"':'&quot;'}[c]))}
@@ -68,7 +68,6 @@ qs('#photoPicker').addEventListener('click',()=>qs('#photoInput').click());qs('#
 qs('.profile-card').addEventListener('click',()=>openInfo('پروفایل کاربری'));qsa('.settings-row:not([data-go])').forEach(row=>{if(row.tagName==='BUTTON')row.addEventListener('click',()=>openInfo(row.querySelector('b').textContent))});
 qs('#detailContent').addEventListener('click',e=>{const button=e.target.closest('.quick-action');if(button)showToast(`${button.textContent.trim()} فعال شد`)});qs('#infoSheetContent').addEventListener('click',e=>{const action=e.target.closest('.info-action');if(action)showToast(`${action.querySelector('b').textContent} انتخاب شد`)});
 qs('#yearCalendar').addEventListener('click',e=>{const day=e.target.closest('[data-calendar-day]');if(day)openCalendarBirthdays(Number(day.dataset.calendarMonth),Number(day.dataset.calendarDay))});qs('#calendarBirthdayList').addEventListener('click',e=>{const person=e.target.closest('[data-calendar-person]');if(person){closeSheets();showDetail(person.dataset.calendarPerson)}});
-qs('#pages').addEventListener('touchstart',e=>{if(!swipePages.includes(state.currentPage)||!selectSheet.hidden||!dateSheet.hidden||!infoSheet.hidden||!calendarBirthdaysSheet.hidden)return;const t=e.changedTouches[0];touchStart={x:t.clientX,y:t.clientY,target:e.target}},{passive:true});qs('#pages').addEventListener('touchend',e=>{if(!touchStart||touchStart.target.closest('input,textarea,select,.filters,.date-wheels')){touchStart=null;return}const t=e.changedTouches[0],dx=t.clientX-touchStart.x,dy=t.clientY-touchStart.y;touchStart=null;if(Math.abs(dx)<65||Math.abs(dx)<Math.abs(dy)*1.25)return;suppressClick=true;setTimeout(()=>suppressClick=false,450);const index=swipePages.indexOf(state.currentPage);if(dx>0&&index<swipePages.length-1)go(swipePages[index+1]);if(dx<0&&index>0)go(swipePages[index-1])},{passive:true});document.addEventListener('click',e=>{if(!suppressClick)return;suppressClick=false;e.preventDefault();e.stopImmediatePropagation()},true);
 window.addEventListener('beforeinstallprompt',e=>{e.preventDefault();state.deferredPrompt=e;qs('#installButton').hidden=false});qs('#installButton').addEventListener('click',async()=>{if(!state.deferredPrompt)return;state.deferredPrompt.prompt();await state.deferredPrompt.userChoice;state.deferredPrompt=null;qs('#installButton').hidden=true});
 function isNewerVersion(next,current){const a=String(next).split('.').map(Number),b=String(current).split('.').map(Number);for(let i=0;i<Math.max(a.length,b.length);i++){if((a[i]||0)!==(b[i]||0))return (a[i]||0)>(b[i]||0)}return false}
 function showUpdatePrompt(meta){if(!isNewerVersion(meta.version,VERSION)||sessionStorage.getItem('yadeto.dismissedUpdate')===meta.version)return;updateVersion.textContent=`نسخه ${meta.version}`;const changes=Array.isArray(meta.changes)&&meta.changes.length?meta.changes:['بهبود عملکرد و تجربه کاربری اپلیکیشن'];updateChanges.innerHTML=changes.map(item=>`<li>${escapeHtml(item)}</li>`).join('');updateBackdrop.hidden=false;updateSheet.hidden=false}
