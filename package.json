@@ -1,7 +1,7 @@
 {
   "name": "yadeto",
   "private": true,
-  "version": "2.3.0",
+  "version": "2.3.1",
   "workspaces": [
     "apps/app",
     "apps/admin"
