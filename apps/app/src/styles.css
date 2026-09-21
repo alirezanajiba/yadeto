@@ -203,3 +203,12 @@ body{position:fixed;inset:0;width:100%}
 .wheel-labels,.date-wheels{grid-template-columns:repeat(2,1fr);gap:12px}
 .wheel-labels,.time-wheel-labels{padding:12px 12px 5px;color:var(--teal);font-size:12px;font-weight:800}
 .photo-crop-sheet{overflow:hidden}
+
+/* v2.5.2 smooth Persian pickers and disabled SMS time */
+.time-picker-trigger{position:relative;justify-content:center;text-align:center}
+.time-picker-trigger>span{width:100%;text-align:center}
+.time-picker-trigger svg{position:absolute;right:9px}
+.picker-wheel{scroll-snap-type:none}
+.picker-wheel button{scroll-snap-align:none;scroll-snap-stop:normal}
+.compact-setting.is-disabled{opacity:.42}
+.compact-setting .time-picker-trigger:disabled{cursor:not-allowed}
