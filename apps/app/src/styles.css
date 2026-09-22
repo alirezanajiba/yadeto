@@ -212,3 +212,10 @@ body{position:fixed;inset:0;width:100%}
 .picker-wheel button{scroll-snap-align:none;scroll-snap-stop:normal}
 .compact-setting.is-disabled{opacity:.42}
 .compact-setting .time-picker-trigger:disabled{cursor:not-allowed}
+
+/* v2.5.3 SMS schedule row and larger portrait */
+.detail-avatar-wrap{width:132px;height:132px;margin-top:calc(min(50vw,260px) - 154px)}
+.detail-visual-zone .detail-avatar{width:132px;height:132px;font-size:40px}
+.sms-setting-row{margin-top:13px;padding-top:12px;border-top:1px solid #f1ece6}
+.accent-reminder .detail-section-title>i{background:#fff0e9;color:var(--coral)}
+@media(max-width:380px){.detail-avatar-wrap{width:120px;height:120px;margin-top:calc(50vw - 142px)}.detail-visual-zone .detail-avatar{width:120px;height:120px}}
