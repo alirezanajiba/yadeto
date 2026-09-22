@@ -213,7 +213,7 @@ body{position:fixed;inset:0;width:100%}
 .compact-setting.is-disabled{opacity:.42}
 .compact-setting .time-picker-trigger:disabled{cursor:not-allowed}
 
-/* v2.5.5 SMS schedule row and larger portrait */
+/* v2.5.6 SMS schedule row and larger portrait */
 .detail-avatar-wrap{width:132px;height:132px;margin-top:calc(min(50vw,260px) - 154px)}
 .detail-visual-zone .detail-avatar{width:132px;height:132px;font-size:40px}
 .sms-setting-row{margin-top:13px;padding-top:12px;border-top:1px solid #f1ece6}
@@ -548,3 +548,45 @@ body{position:fixed;inset:0;width:100%}
   .detail-identity-card .birthday-summary article>span{flex-basis:34px;width:34px;height:34px}
   .detail-identity-card .birthday-summary b{font-size:14.5px}
 }
+
+
+/* Faithful identity composition */
+.detail-visual-zone{margin:0 -16px 16px;padding:0 16px;overflow:visible;background:transparent}
+.detail-visual-zone:before{height:min(50vw,260px);aspect-ratio:auto;background-size:100% 100%;-webkit-mask-image:linear-gradient(to bottom,#000 0,#000 calc(100% - 38px),transparent 100%);mask-image:linear-gradient(to bottom,#000 0,#000 calc(100% - 38px),transparent 100%)}
+.detail-visual-zone:after{display:none}
+.detail-visual-zone .detail-hero{min-height:0;margin:0;padding:calc(min(50vw,260px) - 70px) 0 0;overflow:visible}
+.detail-identity-card{width:min(calc(100% - 12px),404px);margin:0 auto;padding:84px 14px 12px;border:1px solid rgba(255,255,255,.88);border-radius:31px;background:rgba(255,253,249,.95);box-shadow:0 14px 34px rgba(46,72,73,.095);backdrop-filter:blur(8px);-webkit-backdrop-filter:blur(8px)}
+.detail-identity-card .detail-avatar-wrap{top:-105px;width:158px;height:158px}
+.detail-identity-card .detail-avatar{width:158px;height:158px;border-width:7px;font-size:48px;box-shadow:0 13px 30px rgba(31,69,73,.2)}
+.detail-identity-card .detail-avatar-edit{right:-1px;bottom:8px;width:34px;height:34px;border-width:3px}
+.identity-confetti{display:none}
+.identity-celebration{position:absolute;z-index:1;top:29px;left:50%;width:92%;height:104px;overflow:visible;transform:translateX(-50%);pointer-events:none}
+.identity-celebration .ribbon{fill:none;stroke-width:5;stroke-linecap:round;stroke-linejoin:round}
+.identity-celebration .ribbon-coral{stroke:var(--coral)}
+.identity-celebration .ribbon-teal{stroke:var(--teal)}
+.identity-celebration .confetti-stroke{fill:none;stroke-width:4;stroke-linecap:round}
+.identity-celebration .confetti-stroke.coral{stroke:var(--coral)}
+.identity-celebration .confetti-stroke.teal{stroke:var(--teal)}
+.identity-celebration .confetti-dot.coral{fill:var(--coral)}
+.identity-celebration .confetti-dot.teal{fill:var(--teal)}
+.identity-heart{top:56px;z-index:7;width:25px;height:23px;padding:0;border-radius:0;background:transparent;color:var(--coral);box-shadow:none}
+.identity-heart svg{display:block;width:100%;height:100%;fill:currentColor;filter:drop-shadow(0 3px 5px rgba(244,123,80,.2))}
+.detail-visual-zone .detail-identity-card h2{position:relative;z-index:3;margin:0;font-size:27px;line-height:1.35;font-weight:900;letter-spacing:-.35px}
+.detail-identity-card .detail-group-pill{position:relative;z-index:3;min-height:34px;margin-top:8px;padding:6px 16px;gap:7px;border:1px solid rgba(226,241,239,.9);background:linear-gradient(135deg,#e6f4f2,#f1f8f7);font-size:13px}
+.detail-identity-card .detail-group-pill svg{width:19px;height:19px}
+.detail-identity-card .birthday-summary{position:relative;display:grid;grid-template-columns:repeat(2,minmax(0,1fr));min-height:96px;max-width:none;margin:17px 0 0;padding:5px;border:0;border-radius:23px;background:rgba(255,255,255,.92);box-shadow:0 8px 22px rgba(49,70,70,.07),inset 0 0 0 1px rgba(235,227,219,.42)}
+.detail-identity-card .birthday-summary:before{content:"";top:16px;bottom:16px;left:50%;width:1px;height:auto;transform:translateX(-50%);border-radius:0;background:rgba(231,222,213,.85)}
+.summary-heart{position:absolute;z-index:3;top:13px;left:50%;width:20px;height:20px;padding:4px;transform:translateX(-50%);border-radius:50%;background:#fff;color:var(--coral)}
+.summary-heart svg{display:block;width:100%;height:100%;fill:currentColor}
+.detail-identity-card .birthday-summary article{min-height:86px;gap:10px;padding:10px 11px;background:transparent}
+.detail-identity-card .birthday-summary .days-stat{grid-column:1;flex-direction:row-reverse}
+.detail-identity-card .birthday-summary .birth-date-stat{grid-column:2;border:0;flex-direction:row}
+.detail-identity-card .birthday-summary article>span{flex:0 0 48px;width:48px;height:48px;border-radius:17px}
+.detail-identity-card .birthday-summary svg{width:24px;height:24px}
+.detail-identity-card .birthday-summary small{font-size:12px;line-height:1.4;white-space:nowrap}
+.detail-identity-card .birthday-summary b{margin-top:4px;font-size:19px;line-height:1.25;font-weight:900}
+.detail-identity-card .birthday-summary .days-stat b{color:var(--coral-dark)}
+.detail-settings{position:relative;z-index:1}
+@media(max-width:380px){.detail-visual-zone .detail-hero{padding-top:calc(50vw - 64px)}.detail-identity-card{width:calc(100% - 8px);padding:78px 10px 10px;border-radius:28px}.detail-identity-card .detail-avatar-wrap{top:-96px;width:146px;height:146px}.detail-identity-card .detail-avatar{width:146px;height:146px;font-size:44px}.identity-heart{top:50px;width:23px;height:21px}.identity-celebration{top:27px;width:96%;height:96px}.detail-visual-zone .detail-identity-card h2{font-size:25px}.detail-identity-card .detail-group-pill{min-height:32px;font-size:12px}.detail-identity-card .birthday-summary{min-height:90px;margin-top:15px;padding:4px}.detail-identity-card .birthday-summary article{min-height:82px;gap:7px;padding:8px 6px}.detail-identity-card .birthday-summary article>span{flex-basis:42px;width:42px;height:42px;border-radius:15px}.detail-identity-card .birthday-summary svg{width:21px;height:21px}.detail-identity-card .birthday-summary small{font-size:11px}.detail-identity-card .birthday-summary b{font-size:17px}}
+
+.detail-identity-card .birthday-summary .summary-heart svg{width:100%;height:100%}
