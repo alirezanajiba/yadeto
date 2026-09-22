@@ -213,9 +213,188 @@ body{position:fixed;inset:0;width:100%}
 .compact-setting.is-disabled{opacity:.42}
 .compact-setting .time-picker-trigger:disabled{cursor:not-allowed}
 
-/* v2.5.3 SMS schedule row and larger portrait */
+/* v2.5.4 SMS schedule row and larger portrait */
 .detail-avatar-wrap{width:132px;height:132px;margin-top:calc(min(50vw,260px) - 154px)}
 .detail-visual-zone .detail-avatar{width:132px;height:132px;font-size:40px}
 .sms-setting-row{margin-top:13px;padding-top:12px;border-top:1px solid #f1ece6}
 .accent-reminder .detail-section-title>i{background:#fff0e9;color:var(--coral)}
 @media(max-width:380px){.detail-avatar-wrap{width:120px;height:120px;margin-top:calc(50vw - 142px)}.detail-visual-zone .detail-avatar{width:120px;height:120px}}
+
+
+/* Birthday identity card */
+.detail-visual-zone{
+  margin-bottom:18px;
+  padding:0 16px 18px;
+  background:linear-gradient(180deg,#f8eee2 0%,#fbf4eb 53%,#fdfaf5 100%);
+}
+.detail-visual-zone .detail-hero{
+  min-height:0;
+  margin:0;
+  padding:calc(min(50vw,260px) - 20px) 0 0;
+  overflow:visible;
+}
+.detail-identity-card{
+  position:relative;
+  width:min(100%,420px);
+  margin:0 auto;
+  padding:84px 14px 14px;
+  border:1px solid rgba(255,255,255,.92);
+  border-radius:30px;
+  background:rgba(255,255,255,.9);
+  box-shadow:0 16px 38px rgba(42,73,76,.12);
+  text-align:center;
+  backdrop-filter:blur(10px);
+  -webkit-backdrop-filter:blur(10px);
+}
+.detail-identity-card .detail-avatar-wrap{
+  position:absolute;
+  z-index:6;
+  top:-66px;
+  left:50%;
+  width:132px;
+  height:132px;
+  margin:0;
+  transform:translateX(-50%);
+}
+.detail-identity-card .detail-avatar{
+  width:132px;
+  height:132px;
+  margin:0;
+  border:7px solid rgba(255,255,255,.98);
+  font-size:40px;
+  box-shadow:0 13px 30px rgba(31,69,73,.22);
+}
+.detail-identity-card .detail-avatar-edit{
+  z-index:8;
+  right:-4px;
+  bottom:5px;
+}
+.detail-visual-zone .detail-identity-card h2{
+  margin:0;
+  font-size:24px;
+  line-height:1.45;
+  color:var(--text);
+  text-shadow:none;
+}
+.detail-identity-card .detail-group-pill{
+  display:inline-flex;
+  align-items:center;
+  gap:6px;
+  margin-top:7px;
+  padding:6px 14px;
+  background:linear-gradient(135deg,#e8f5f3,#f2f8f7);
+  color:var(--teal-dark);
+  font-size:12px;
+  box-shadow:none;
+}
+.detail-identity-card .detail-group-pill svg{
+  width:16px;
+  height:16px;
+}
+.identity-heart{
+  position:absolute;
+  top:58px;
+  left:50%;
+  z-index:2;
+  transform:translateX(-50%);
+  color:var(--coral);
+  font-size:19px;
+  line-height:1;
+}
+.identity-confetti{
+  position:absolute;
+  top:48px;
+  width:9px;
+  height:22px;
+  border-radius:9px;
+  pointer-events:none;
+}
+.identity-confetti-one{
+  right:20%;
+  border:3px solid var(--coral);
+  border-left-color:transparent;
+  border-bottom-color:transparent;
+  transform:rotate(28deg);
+}
+.identity-confetti-two{
+  left:20%;
+  border:3px solid var(--teal);
+  border-right-color:transparent;
+  border-bottom-color:transparent;
+  transform:rotate(-30deg);
+}
+.detail-identity-card .birthday-summary{
+  direction:ltr;
+  display:grid;
+  grid-template-columns:repeat(2,minmax(0,1fr));
+  gap:0;
+  max-width:none;
+  margin:15px 0 0;
+  padding:5px;
+  border:1px solid rgba(232,226,218,.7);
+  border-radius:22px;
+  background:rgba(255,255,255,.8);
+  box-shadow:0 8px 22px rgba(42,73,76,.07);
+}
+.detail-identity-card .birthday-summary article{
+  direction:rtl;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  gap:10px;
+  min-height:74px;
+  padding:9px 8px;
+  border:0;
+  border-radius:0;
+  background:transparent;
+  box-shadow:none;
+  text-align:right;
+  backdrop-filter:none;
+  -webkit-backdrop-filter:none;
+}
+.detail-identity-card .birthday-summary .days-stat{
+  grid-column:1;
+}
+.detail-identity-card .birthday-summary .birth-date-stat{
+  grid-column:2;
+  border-right:1px solid #eee6df;
+}
+.detail-identity-card .birthday-summary article>span{
+  flex:0 0 42px;
+  width:42px;
+  height:42px;
+  margin:0;
+  border-radius:14px;
+}
+.detail-identity-card .birthday-summary .days-stat>span{
+  background:var(--coral-soft);
+  color:var(--coral);
+}
+.detail-identity-card .birthday-summary .birth-date-stat>span{
+  background:var(--teal-soft);
+  color:var(--teal);
+}
+.detail-identity-card .birthday-summary svg{
+  width:21px;
+  height:21px;
+}
+.detail-identity-card .birthday-summary small{
+  font-size:11px;
+}
+.detail-identity-card .birthday-summary b{
+  margin-top:3px;
+  font-size:17px;
+  font-weight:800;
+  overflow:visible;
+  text-overflow:clip;
+}
+@media(max-width:380px){
+  .detail-visual-zone .detail-hero{padding-top:calc(50vw - 16px)}
+  .detail-identity-card{padding:78px 10px 10px;border-radius:26px}
+  .detail-identity-card .detail-avatar-wrap{top:-60px;width:120px;height:120px}
+  .detail-identity-card .detail-avatar{width:120px;height:120px}
+  .detail-identity-card .birthday-summary article{gap:7px;padding:8px 5px}
+  .detail-identity-card .birthday-summary article>span{flex-basis:36px;width:36px;height:36px}
+  .detail-identity-card .birthday-summary b{font-size:15px}
+  .identity-heart{top:54px}
+}
