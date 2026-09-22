@@ -213,7 +213,7 @@ body{position:fixed;inset:0;width:100%}
 .compact-setting.is-disabled{opacity:.42}
 .compact-setting .time-picker-trigger:disabled{cursor:not-allowed}
 
-/* v2.5.4 SMS schedule row and larger portrait */
+/* v2.5.5 SMS schedule row and larger portrait */
 .detail-avatar-wrap{width:132px;height:132px;margin-top:calc(min(50vw,260px) - 154px)}
 .detail-visual-zone .detail-avatar{width:132px;height:132px;font-size:40px}
 .sms-setting-row{margin-top:13px;padding-top:12px;border-top:1px solid #f1ece6}
@@ -397,4 +397,154 @@ body{position:fixed;inset:0;width:100%}
   .detail-identity-card .birthday-summary article>span{flex-basis:36px;width:36px;height:36px}
   .detail-identity-card .birthday-summary b{font-size:15px}
   .identity-heart{top:54px}
+}
+
+
+/* Refined birthday identity card */
+.detail-visual-zone{
+  margin:0 -16px 18px;
+  padding:0 16px;
+  overflow:visible;
+  background:transparent;
+}
+.detail-visual-zone:after{
+  display:block;
+  inset:calc(min(50vw,260px) - 34px) 0 auto;
+  height:42px;
+  background:linear-gradient(180deg,rgba(253,250,245,0),#fdfaf5 92%);
+  pointer-events:none;
+}
+.detail-visual-zone .detail-hero{
+  padding:calc(min(50vw,260px) - 30px) 0 0;
+}
+.detail-identity-card{
+  width:min(calc(100% - 12px),404px);
+  padding:82px 12px 11px;
+  border-color:rgba(255,255,255,.78);
+  border-radius:28px;
+  background:rgba(255,255,255,.94);
+  box-shadow:0 12px 28px rgba(38,65,68,.09);
+  backdrop-filter:blur(7px);
+  -webkit-backdrop-filter:blur(7px);
+}
+.detail-visual-zone .detail-identity-card h2{
+  font-size:22px;
+  line-height:1.35;
+}
+.detail-identity-card .detail-group-pill{
+  margin-top:6px;
+  padding:5px 12px;
+  font-size:11.5px;
+}
+.identity-heart{
+  top:69px;
+  z-index:7;
+  width:22px;
+  height:20px;
+  padding-top:2px;
+  border-radius:50%;
+  background:#fff;
+  color:var(--coral);
+  font-size:14px;
+  box-shadow:0 3px 9px rgba(244,123,80,.14);
+}
+.identity-confetti{
+  top:68px;
+  width:5px;
+  height:15px;
+  border:0;
+  border-radius:6px;
+  opacity:.9;
+}
+.identity-confetti:before,.identity-confetti:after{
+  content:"";
+  position:absolute;
+  display:block;
+  border-radius:50%;
+}
+.identity-confetti-one{
+  right:21%;
+  background:var(--coral);
+  transform:rotate(28deg);
+  box-shadow:17px 10px 0 -1px #f2b160;
+}
+.identity-confetti-one:before{
+  width:6px;
+  height:6px;
+  right:13px;
+  top:-7px;
+  background:var(--teal);
+}
+.identity-confetti-two{
+  left:21%;
+  background:var(--teal);
+  transform:rotate(-28deg);
+  box-shadow:-17px 10px 0 -1px #f2b160;
+}
+.identity-confetti-two:before{
+  width:6px;
+  height:6px;
+  left:13px;
+  top:-7px;
+  background:var(--coral);
+}
+.detail-identity-card .birthday-summary{
+  position:relative;
+  margin-top:12px;
+  padding:3px;
+  border-color:rgba(232,226,218,.58);
+  border-radius:19px;
+  background:#fff;
+  box-shadow:0 6px 16px rgba(42,73,76,.055);
+}
+.detail-identity-card .birthday-summary:before{
+  content:"♥";
+  position:absolute;
+  z-index:2;
+  top:50%;
+  left:50%;
+  width:20px;
+  height:20px;
+  display:grid;
+  place-items:center;
+  transform:translate(-50%,-50%);
+  border-radius:50%;
+  background:#fff;
+  color:var(--coral);
+  font-size:10px;
+}
+.detail-identity-card .birthday-summary article{
+  min-height:66px;
+  gap:8px;
+  padding:7px 6px;
+}
+.detail-identity-card .birthday-summary .birth-date-stat{
+  border-right:1px solid rgba(233,225,217,.82);
+}
+.detail-identity-card .birthday-summary article>span{
+  flex-basis:38px;
+  width:38px;
+  height:38px;
+  border-radius:13px;
+}
+.detail-identity-card .birthday-summary svg{
+  width:19px;
+  height:19px;
+}
+.detail-identity-card .birthday-summary small{
+  font-size:10px;
+}
+.detail-identity-card .birthday-summary b{
+  margin-top:2px;
+  font-size:16px;
+}
+@media(max-width:380px){
+  .detail-visual-zone .detail-hero{padding-top:calc(50vw - 26px)}
+  .detail-identity-card{width:calc(100% - 8px);padding:76px 9px 9px;border-radius:25px}
+  .detail-visual-zone .detail-identity-card h2{font-size:21px}
+  .identity-heart{top:63px}
+  .identity-confetti{top:64px}
+  .detail-identity-card .birthday-summary article{min-height:62px;gap:6px;padding:6px 4px}
+  .detail-identity-card .birthday-summary article>span{flex-basis:34px;width:34px;height:34px}
+  .detail-identity-card .birthday-summary b{font-size:14.5px}
 }
