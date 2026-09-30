@@ -213,7 +213,7 @@ body{position:fixed;inset:0;width:100%}
 .compact-setting.is-disabled{opacity:.42}
 .compact-setting .time-picker-trigger:disabled{cursor:not-allowed}
 
-/* v2.5.6 SMS schedule row and larger portrait */
+/* v2.5.7 SMS schedule row and larger portrait */
 .detail-avatar-wrap{width:132px;height:132px;margin-top:calc(min(50vw,260px) - 154px)}
 .detail-visual-zone .detail-avatar{width:132px;height:132px;font-size:40px}
 .sms-setting-row{margin-top:13px;padding-top:12px;border-top:1px solid #f1ece6}
@@ -590,3 +590,25 @@ body{position:fixed;inset:0;width:100%}
 @media(max-width:380px){.detail-visual-zone .detail-hero{padding-top:calc(50vw - 64px)}.detail-identity-card{width:calc(100% - 8px);padding:78px 10px 10px;border-radius:28px}.detail-identity-card .detail-avatar-wrap{top:-96px;width:146px;height:146px}.detail-identity-card .detail-avatar{width:146px;height:146px;font-size:44px}.identity-heart{top:50px;width:23px;height:21px}.identity-celebration{top:27px;width:96%;height:96px}.detail-visual-zone .detail-identity-card h2{font-size:25px}.detail-identity-card .detail-group-pill{min-height:32px;font-size:12px}.detail-identity-card .birthday-summary{min-height:90px;margin-top:15px;padding:4px}.detail-identity-card .birthday-summary article{min-height:82px;gap:7px;padding:8px 6px}.detail-identity-card .birthday-summary article>span{flex-basis:42px;width:42px;height:42px;border-radius:15px}.detail-identity-card .birthday-summary svg{width:21px;height:21px}.detail-identity-card .birthday-summary small{font-size:11px}.detail-identity-card .birthday-summary b{font-size:17px}}
 
 .detail-identity-card .birthday-summary .summary-heart svg{width:100%;height:100%}
+
+
+/* Exact celebration ornaments and stat icon placement */
+.identity-celebration{top:25px;height:112px;width:94%}
+.identity-celebration .ornament-curl{fill:none;stroke-width:5;stroke-linecap:round;stroke-linejoin:round}
+.identity-celebration .ornament-coral{stroke:var(--coral)}
+.identity-celebration .ornament-teal{stroke:var(--teal)}
+.identity-celebration .ornament-spark{fill:none;stroke-width:4;stroke-linecap:round}
+.identity-celebration .ornament-teal{stroke:var(--teal)}
+.identity-celebration .ornament-coral{stroke:var(--coral)}
+.identity-celebration .ornament-peach{stroke:#efb05d}
+.identity-celebration .ornament-teal-fill{fill:var(--teal)}
+.identity-celebration .ornament-coral-fill{fill:var(--coral)}
+.identity-celebration .ornament-peach-fill{fill:#efb05d}
+.detail-identity-card .birthday-summary article{position:relative;display:block;text-align:center}
+.detail-identity-card .birthday-summary article>span{position:absolute;top:50%;margin:0;transform:translateY(-50%)}
+.detail-identity-card .birthday-summary .days-stat>span{left:10px;right:auto}
+.detail-identity-card .birthday-summary .birth-date-stat>span{right:10px;left:auto}
+.detail-identity-card .birthday-summary article>div{display:block;width:calc(100% - 55px)}
+.detail-identity-card .birthday-summary .days-stat>div{margin-right:0;margin-left:55px}
+.detail-identity-card .birthday-summary .birth-date-stat>div{margin-right:55px;margin-left:0}
+@media(max-width:380px){.identity-celebration{top:23px;height:104px;width:98%}.detail-identity-card .birthday-summary .days-stat>span{left:6px}.detail-identity-card .birthday-summary .birth-date-stat>span{right:6px}.detail-identity-card .birthday-summary article>div{width:calc(100% - 47px)}.detail-identity-card .birthday-summary .days-stat>div{margin-left:47px}.detail-identity-card .birthday-summary .birth-date-stat>div{margin-right:47px}}
