@@ -213,7 +213,7 @@ body{position:fixed;inset:0;width:100%}
 .compact-setting.is-disabled{opacity:.42}
 .compact-setting .time-picker-trigger:disabled{cursor:not-allowed}
 
-/* v2.5.7 SMS schedule row and larger portrait */
+/* v2.5.8 SMS schedule row and larger portrait */
 .detail-avatar-wrap{width:132px;height:132px;margin-top:calc(min(50vw,260px) - 154px)}
 .detail-visual-zone .detail-avatar{width:132px;height:132px;font-size:40px}
 .sms-setting-row{margin-top:13px;padding-top:12px;border-top:1px solid #f1ece6}
@@ -612,3 +612,14 @@ body{position:fixed;inset:0;width:100%}
 .detail-identity-card .birthday-summary .days-stat>div{margin-right:0;margin-left:55px}
 .detail-identity-card .birthday-summary .birth-date-stat>div{margin-right:55px;margin-left:0}
 @media(max-width:380px){.identity-celebration{top:23px;height:104px;width:98%}.detail-identity-card .birthday-summary .days-stat>span{left:6px}.detail-identity-card .birthday-summary .birth-date-stat>span{right:6px}.detail-identity-card .birthday-summary article>div{width:calc(100% - 47px)}.detail-identity-card .birthday-summary .days-stat>div{margin-left:47px}.detail-identity-card .birthday-summary .birth-date-stat>div{margin-right:47px}}
+
+
+/* Exact compact ornaments from the reference artwork */
+.identity-celebration{top:34px;width:90%;height:62px}
+.identity-celebration .ornament-loop{fill:none;stroke-width:3.2;stroke-linecap:round;stroke-linejoin:round}
+.identity-celebration .ornament-piece{stroke:none!important}
+.identity-celebration .ornament-coral{stroke:var(--coral)}
+.identity-celebration .ornament-teal{stroke:var(--teal)}
+.identity-celebration .ornament-coral-fill{fill:var(--coral);stroke:none}
+.identity-celebration .ornament-teal-fill{fill:var(--teal);stroke:none}
+@media(max-width:380px){.identity-celebration{top:31px;width:92%;height:58px}}
