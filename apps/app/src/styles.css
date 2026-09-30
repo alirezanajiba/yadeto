@@ -614,13 +614,8 @@ body{position:fixed;inset:0;width:100%}
 @media(max-width:380px){.identity-celebration{top:23px;height:104px;width:98%}.detail-identity-card .birthday-summary .days-stat>span{left:6px}.detail-identity-card .birthday-summary .birth-date-stat>span{right:6px}.detail-identity-card .birthday-summary article>div{width:calc(100% - 47px)}.detail-identity-card .birthday-summary .days-stat>div{margin-left:47px}.detail-identity-card .birthday-summary .birth-date-stat>div{margin-right:47px}}
 
 
-/* Exact compact ornaments from the reference artwork */
-.identity-celebration{top:10px;width:92%;height:62px}
-.identity-celebration .ornament-loop{fill:none;stroke-width:3.2;stroke-linecap:round;stroke-linejoin:round}
-.identity-celebration .ornament-piece{stroke:none!important}
-.identity-celebration .ornament-coral{stroke:var(--coral)}
-.identity-celebration .ornament-teal{stroke:var(--teal)}
-.identity-celebration .ornament-coral-fill{fill:var(--coral);stroke:none}
-.identity-celebration .ornament-teal-fill{fill:var(--teal);stroke:none}
+/* Modern birthday sparkle clusters */
+.identity-celebration{top:11px;width:92%;height:62px;background:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 360 80'%3E%3Cg%3E%3Cpath fill='%23f47b50' d='M72 17c2 11 7 16 18 18-11 2-16 7-18 18-2-11-7-16-18-18 11-2 16-7 18-18Z'/%3E%3Cpath fill='%232b7c82' d='M39 7c1 6 4 9 10 10-6 1-9 4-10 10-1-6-4-9-10-10 6-1 9-4 10-10Z'/%3E%3Ccircle cx='107' cy='18' r='4' fill='%23f3b85f'/%3E%3Ccircle cx='38' cy='60' r='3.5' fill='%23f47b50'/%3E%3Crect x='102' y='50' width='7' height='16' rx='3.5' fill='%232b7c82' transform='rotate(-42 105.5 58)'/%3E%3C/g%3E%3Cg%3E%3Cpath fill='%232b7c82' d='M288 17c-2 11-7 16-18 18 11 2 16 7 18 18 2-11 7-16 18-18-11-2-16-7-18-18Z'/%3E%3Cpath fill='%23f47b50' d='M321 7c-1 6-4 9-10 10 6 1 9 4 10 10 1-6 4-9 10-10-6-1-9-4-10-10Z'/%3E%3Ccircle cx='253' cy='18' r='4' fill='%23f3b85f'/%3E%3Ccircle cx='322' cy='60' r='3.5' fill='%232b7c82'/%3E%3Crect x='251' y='50' width='7' height='16' rx='3.5' fill='%23f47b50' transform='rotate(42 254.5 58)'/%3E%3C/g%3E%3C/svg%3E") center/100% 100% no-repeat;filter:drop-shadow(0 3px 6px rgba(43,124,130,.1))}
+.identity-celebration>*{display:none}
 .detail-visual-zone .detail-identity-card h2{margin-top:12px}
-@media(max-width:380px){.identity-celebration{top:8px;width:94%;height:58px}.detail-visual-zone .detail-identity-card h2{margin-top:10px}}
+@media(max-width:380px){.identity-celebration{top:9px;width:94%;height:58px}.detail-visual-zone .detail-identity-card h2{margin-top:10px}}
