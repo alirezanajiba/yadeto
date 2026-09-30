@@ -615,11 +615,12 @@ body{position:fixed;inset:0;width:100%}
 
 
 /* Exact compact ornaments from the reference artwork */
-.identity-celebration{top:34px;width:90%;height:62px}
+.identity-celebration{top:10px;width:92%;height:62px}
 .identity-celebration .ornament-loop{fill:none;stroke-width:3.2;stroke-linecap:round;stroke-linejoin:round}
 .identity-celebration .ornament-piece{stroke:none!important}
 .identity-celebration .ornament-coral{stroke:var(--coral)}
 .identity-celebration .ornament-teal{stroke:var(--teal)}
 .identity-celebration .ornament-coral-fill{fill:var(--coral);stroke:none}
 .identity-celebration .ornament-teal-fill{fill:var(--teal);stroke:none}
-@media(max-width:380px){.identity-celebration{top:31px;width:92%;height:58px}}
+.detail-visual-zone .detail-identity-card h2{margin-top:12px}
+@media(max-width:380px){.identity-celebration{top:8px;width:94%;height:58px}.detail-visual-zone .detail-identity-card h2{margin-top:10px}}
