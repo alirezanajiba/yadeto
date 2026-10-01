@@ -620,3 +620,19 @@ body{position:fixed;inset:0;width:100%}
 .identity-heart{display:none}
 .detail-visual-zone .detail-identity-card h2{margin-top:4px}
 @media(max-width:380px){.identity-celebration{top:11px;width:97%;height:68px}.detail-visual-zone .detail-identity-card h2{margin-top:3px}}
+
+/* Detail and home-screen polish */
+.detail-identity-card .birthday-summary b{font-size:21px}
+#editBirthdayForm input[name="name"],
+#editBirthdayForm #editBirthDateText{font-size:15px}
+.home-toolbar #favoriteButton{transform:translateY(2px)}
+.react-app-root .calendar-shortcut{
+  color:var(--coral-dark);
+  background:#f7e2d7;
+  box-shadow:inset 0 0 0 1px rgba(191,95,63,.1)
+}
+#menuButton svg{transform:scaleX(-1)}
+.search-box input{font-size:16px}
+
+@media(hover:none){.react-app-root .calendar-shortcut:hover{background:#f7e2d7}}
+@media(max-width:380px){.detail-identity-card .birthday-summary b{font-size:19px}}
