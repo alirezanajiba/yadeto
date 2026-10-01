@@ -1,5 +1,5 @@
 export function initializeApp(){
-const VERSION='2.5.18';
+const VERSION='2.5.19';
 const STORAGE_KEY='yadeto.birthdays.v1';
 const monthNames=['فروردین','اردیبهشت','خرداد','تیر','مرداد','شهریور','مهر','آبان','آذر','دی','بهمن','اسفند'];
 const faPlain=new Intl.NumberFormat('fa-IR',{useGrouping:false});
@@ -28,7 +28,7 @@ function formatClock(value='09:00'){const [hour='09',minute='00']=String(value).
 function nextOccurrence(item){const start=new Date();start.setHours(0,0,0,0);for(let days=0;days<=370;days++){const date=new Date(start);date.setDate(start.getDate()+days);const value=currentJalali(date);if(value.month===Number(item.month)&&value.day===Number(item.day))return {...value,days}}return {...currentJalali(start),days:365}}
 function dueLabel(days){if(days===0)return 'امروز';if(days===1)return 'فردا';return `${faPlain.format(days)} روز دیگر`}
 function isPastThisYear(item,now=currentJalali()){const month=Number(item.month),day=Number(item.day);return month<now.month||(month===now.month&&day<now.day)}
-function dueBox(days,past=false){if(past)return '<b>گذشته</b>';if(days===0)return '<span class="today-sparkles" aria-hidden="true"><i></i><i></i><i></i><i></i></span><b>امروز</b>';if(days===1)return `<b class="tomorrow-label">${faPlain.format(1)} روز مانده</b>`;return `<b>${faPlain.format(days)}</b><small>روز مانده</small>`}
+function dueBox(days,past=false){if(past)return '<b>گذشته</b>';if(days===0)return '<span class="today-sparkles" aria-hidden="true"><i></i><i></i><i></i><i></i></span><b>امروز</b>';return `<b>${faPlain.format(days)}</b><small>روز مانده</small>`}
 function avatarClass(item){return `avatar-${item.avatar||['s','a','m','r'][Math.abs(item.name.length)%4]}`}
 function avatarInner(item){return item.photo?`<img src="${escapeHtml(item.photo)}" alt="تصویر ${escapeHtml(item.name)}">`:escapeHtml(item.name.slice(0,1))}
 function getVisibleItems(){const now=currentJalali(),daysToFriday=(5-new Date().getDay()+7)%7;return state.items.map(item=>({...item,occurrence:nextOccurrence(item),past:isPastThisYear(item,now)})).filter(item=>{const q=state.query.trim();const matchesQuery=!q||item.name.includes(q)||item.group.includes(q);const matchesFavorite=!state.favoritesOnly||item.favorite;const matchesFilter=state.filter==='all'||(state.filter==='today'&&item.occurrence.days===0)||(state.filter==='week'&&item.occurrence.days<=daysToFriday)||(state.filter==='month'&&Number(item.month)===now.month);return matchesQuery&&matchesFavorite&&matchesFilter})}

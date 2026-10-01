@@ -44,7 +44,6 @@ body{position:fixed;inset:0;width:100%}
 .days-box{position:relative;overflow:hidden;width:66px;min-height:49px;border-radius:15px;background:linear-gradient(145deg,#eaf5f3,#f6faf8);border:1px solid rgba(43,124,130,.1);display:grid;place-content:center;text-align:center;color:var(--teal-dark);line-height:1.15}
 .days-box b{font-size:15px;font-weight:800}
 .days-box.past b{font-size:13px}
-.days-box.tomorrow .tomorrow-label{font-size:11px;white-space:nowrap}
 .days-box.today{isolation:isolate;color:#fff;background:linear-gradient(145deg,#ff936d,#f36f62 58%,#df5f70);border-color:rgba(226,93,91,.2);box-shadow:0 6px 15px rgba(239,111,91,.24)}
 .days-box.today b{position:relative;z-index:2;font-size:15px;text-shadow:0 1px 2px rgba(151,56,59,.18)}
 .today-sparkles{position:absolute;inset:0;z-index:1;pointer-events:none}.today-sparkles i{position:absolute;width:4px;height:4px;border-radius:50%;background:#fff2bd;box-shadow:0 0 0 2px rgba(255,255,255,.1)}.today-sparkles i:nth-child(1){top:8px;right:9px}.today-sparkles i:nth-child(2){right:15px;bottom:8px;width:3px;height:3px;background:#ffd8cc}.today-sparkles i:nth-child(3){top:10px;left:10px;width:3px;height:3px;background:#fff}.today-sparkles i:nth-child(4){left:7px;bottom:10px;width:5px;height:5px;background:#ffd981;transform:rotate(45deg);border-radius:1px}
