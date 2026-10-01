@@ -1,5 +1,5 @@
 export function initializeApp(){
-const VERSION='2.5.10';
+const VERSION='2.5.11';
 const STORAGE_KEY='yadeto.birthdays.v1';
 const monthNames=['فروردین','اردیبهشت','خرداد','تیر','مرداد','شهریور','مهر','آبان','آذر','دی','بهمن','اسفند'];
 const faPlain=new Intl.NumberFormat('fa-IR',{useGrouping:false});
