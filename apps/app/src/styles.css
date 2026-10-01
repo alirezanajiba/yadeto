@@ -636,3 +636,6 @@ body{position:fixed;inset:0;width:100%}
 
 @media(hover:none){.react-app-root .calendar-shortcut:hover{background:#f7e2d7}}
 @media(max-width:380px){.detail-identity-card .birthday-summary b{font-size:19px}}
+
+/* Allow every current-month banner to align with the app's top edge. */
+.react-app-root .calendar-page{padding-bottom:calc(100dvh - 96px + var(--safe-bottom))}
