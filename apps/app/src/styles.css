@@ -639,3 +639,14 @@ body{position:fixed;inset:0;width:100%}
 
 /* Allow every current-month banner to align with the app's top edge. */
 .react-app-root .calendar-page{padding-bottom:calc(100dvh - 96px + var(--safe-bottom))}
+
+/* Keep the calendar title and back action visible while browsing months. */
+.react-app-root .page[data-page="calendar"]>.page-header{
+  position:sticky;
+  z-index:20;
+  top:0;
+  background:rgba(248,249,247,.94);
+  box-shadow:0 4px 14px rgba(42,73,76,.06);
+  backdrop-filter:blur(14px);
+  -webkit-backdrop-filter:blur(14px)
+}
