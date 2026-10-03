@@ -209,17 +209,17 @@ body{position:fixed;inset:0;width:100%}
 
 /* add birthday form */
 .add-page{padding-top:0}
-.add-photo-hero{position:relative;isolation:isolate;min-height:180px;margin:0 -16px 18px;display:grid;place-items:center;overflow:hidden;background:linear-gradient(180deg,#edf7f4 0%,#f9f1e7 100%)}
-.add-photo-hero:before{content:"";position:absolute;z-index:-2;inset:0;background:url('/images/detail/birthday-hero-v2.webp') center 38%/cover no-repeat;opacity:.46;filter:saturate(1.15)}
-.add-photo-hero:after{content:"";position:absolute;z-index:-1;inset:0;background:linear-gradient(180deg,rgba(255,255,255,.05),rgba(253,250,245,.76))}
+.add-photo-hero{position:relative;isolation:isolate;min-height:180px;margin:0 -16px 18px;display:grid;place-items:center;overflow:hidden;background:#f4e8ee}
+.add-photo-hero:before{content:"";position:absolute;z-index:-2;inset:0;background:url('/images/detail/birthday-hero-v2.webp') center 38%/cover no-repeat;opacity:.64;filter:hue-rotate(325deg) saturate(.85)}
+.add-photo-hero:after{content:"";position:absolute;z-index:-1;inset:0;background:rgba(249,238,245,.28)}
 .add-hero-heart{position:absolute;right:18%;top:22px;width:25px;height:25px;color:var(--coral);transform:rotate(10deg);opacity:.84}.add-hero-heart svg{width:100%;height:100%}
 .add-hero-spark{position:absolute;width:10px;height:10px;border-radius:3px;background:#f4bd61;transform:rotate(45deg);box-shadow:0 0 0 5px rgba(244,189,97,.13)}
-.add-hero-spark-one{left:18%;top:39px}.add-hero-spark-two{right:13%;bottom:35px;width:7px;height:7px;background:var(--teal);box-shadow:0 0 0 4px rgba(43,124,130,.1)}
+.add-hero-spark-one{left:18%;top:39px}
 .add-page form{padding:0 2px}
-.add-page .photo-picker{position:relative;z-index:2;padding:0}
-.add-page .photo-picker .add-photo-avatar{position:relative;width:106px;height:106px;margin:0 0 7px;border:5px solid rgba(255,255,255,.94);background:linear-gradient(145deg,#f4f1eb,#e4ece9);box-shadow:0 13px 28px rgba(31,69,73,.2);overflow:hidden}
-.add-page .photo-picker .add-photo-avatar:after{content:"+";position:absolute;right:-1px;bottom:-1px;width:31px;height:31px;border:3px solid #fff;border-radius:50%;display:grid;place-items:center;background:var(--teal);color:#fff;font-size:21px;font-weight:500;line-height:1;box-sizing:border-box}
-.add-page .photo-picker.has-photo .add-photo-avatar:after{content:"";background:var(--teal) url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='white' stroke-width='2.2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M12 20h9'/%3E%3Cpath d='M16.5 3.5a2.1 2.1 0 0 1 3 3L8 18l-4 1 1-4Z'/%3E%3C/svg%3E") center/16px no-repeat}
+.add-page .photo-picker{position:relative;z-index:2;padding:0;margin-top:26px;width:122px;height:122px}
+.add-page .photo-picker .add-photo-avatar{position:relative;width:122px;height:122px;margin:0;border:5px solid rgba(255,255,255,.94);background:linear-gradient(145deg,#f4f1eb,#e4ece9);box-shadow:0 13px 28px rgba(31,69,73,.2);overflow:hidden}
+.add-page .photo-picker:after{z-index:3;content:"+";position:absolute;right:0;bottom:2px;width:36px;height:36px;border:3px solid #fff;border-radius:50%;display:grid;place-items:center;background:var(--teal);color:#fff;font-size:21px;font-weight:500;line-height:1;box-sizing:border-box}
+.add-page .photo-picker.has-photo:after{content:"";background:var(--teal) url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='white' stroke-width='2.2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M12 20h9'/%3E%3Cpath d='M16.5 3.5a2.1 2.1 0 0 1 3 3L8 18l-4 1 1-4Z'/%3E%3C/svg%3E") center/16px no-repeat}
 .add-page .photo-picker img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;border-radius:50%}
 .add-page .photo-picker.has-photo>span>svg{display:none}
 .add-page .photo-picker b{font-size:12px;color:var(--text)}
