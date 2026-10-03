@@ -1,5 +1,5 @@
 export function initializeApp(){
-const VERSION='2.5.23';
+const VERSION='2.5.24';
 const STORAGE_KEY='yadeto.birthdays.v1';
 const monthNames=['فروردین','اردیبهشت','خرداد','تیر','مرداد','شهریور','مهر','آبان','آذر','دی','بهمن','اسفند'];
 const faPlain=new Intl.NumberFormat('fa-IR',{useGrouping:false});
@@ -72,9 +72,23 @@ const searchInput=qs('#searchInput'),appShell=qs('.app-shell');
 let searchViewportLocked=false;
 function syncSearchViewport(){if(!searchViewportLocked)return;const offset=window.visualViewport?.offsetTop||0;appShell.style.transform=`translateY(${offset}px)`;if(window.scrollY)window.scrollTo(0,0)}
 function lockSearchViewport(){if(searchViewportLocked)return;searchViewportLocked=true;appShell.style.height=`${appShell.getBoundingClientRect().height}px`;syncSearchViewport()}
-searchInput.addEventListener('pointerdown',lockSearchViewport);
+// Focus during the touch gesture so iOS opens the keyboard, without its
+// automatic scroll-to-input animation. Temporarily transparent inputs are
+// excluded from WebKit's reveal-on-focus calculation; the search box stays put.
+let searchRevealFrame=0;
+searchInput.closest('.search-box').addEventListener('pointerdown',event=>{
+ if(event.button!==0||document.activeElement===searchInput)return;
+ event.preventDefault();
+ lockSearchViewport();
+ cancelAnimationFrame(searchRevealFrame);
+ searchInput.style.opacity='0';
+ searchInput.focus({preventScroll:true});
+ searchRevealFrame=requestAnimationFrame(()=>{
+  searchRevealFrame=requestAnimationFrame(()=>{searchInput.style.opacity='';searchRevealFrame=0})
+ });
+});
 searchInput.addEventListener('focus',lockSearchViewport);
-searchInput.addEventListener('blur',()=>{searchViewportLocked=false;appShell.style.height='';appShell.style.transform=''});
+searchInput.addEventListener('blur',()=>{cancelAnimationFrame(searchRevealFrame);searchRevealFrame=0;searchInput.style.opacity='';searchViewportLocked=false;appShell.style.height='';appShell.style.transform=''});
 window.visualViewport?.addEventListener('resize',syncSearchViewport);
 window.visualViewport?.addEventListener('scroll',syncSearchViewport);
 window.addEventListener('scroll',syncSearchViewport,{passive:true});
