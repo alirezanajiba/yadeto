@@ -1,5 +1,5 @@
 export function initializeApp(){
-const VERSION='2.5.22';
+const VERSION='2.5.23';
 const STORAGE_KEY='yadeto.birthdays.v1';
 const monthNames=['فروردین','اردیبهشت','خرداد','تیر','مرداد','شهریور','مهر','آبان','آذر','دی','بهمن','اسفند'];
 const faPlain=new Intl.NumberFormat('fa-IR',{useGrouping:false});
@@ -68,6 +68,17 @@ function openTimePicker(trigger){if(trigger.disabled)return;activeTimeTrigger=tr
 function openEditBirthday(){const item=state.items.find(x=>x.id===state.currentDetailId);if(!item)return;const form=qs('#editBirthdayForm');form.elements.name.value=item.name;form.elements.day.value=item.day;form.elements.month.value=item.month;form.elements.year.value='';qs('#editBirthDateText').textContent=formatDayMonth(item);openSheet(editBirthdaySheet)}
 qs('#startButton').addEventListener('click',showProduct);qs('#loginButton').addEventListener('click',showProduct);
 qs('#searchInput').addEventListener('input',e=>{state.query=e.target.value;render()});
+const searchInput=qs('#searchInput'),appShell=qs('.app-shell');
+let searchViewportLocked=false;
+function syncSearchViewport(){if(!searchViewportLocked)return;const offset=window.visualViewport?.offsetTop||0;appShell.style.transform=`translateY(${offset}px)`;if(window.scrollY)window.scrollTo(0,0)}
+function lockSearchViewport(){if(searchViewportLocked)return;searchViewportLocked=true;appShell.style.height=`${appShell.getBoundingClientRect().height}px`;syncSearchViewport()}
+searchInput.addEventListener('pointerdown',lockSearchViewport);
+searchInput.addEventListener('focus',lockSearchViewport);
+searchInput.addEventListener('blur',()=>{searchViewportLocked=false;appShell.style.height='';appShell.style.transform=''});
+window.visualViewport?.addEventListener('resize',syncSearchViewport);
+window.visualViewport?.addEventListener('scroll',syncSearchViewport);
+window.addEventListener('scroll',syncSearchViewport,{passive:true});
+
 qs('#filters').addEventListener('click',e=>{const button=e.target.closest('[data-filter]');if(!button)return;state.filter=button.dataset.filter;qsa('.filter').forEach(x=>x.classList.toggle('active',x===button));render()});
 qs('#favoriteButton').addEventListener('click',e=>{state.favoritesOnly=!state.favoritesOnly;e.currentTarget.innerHTML=`${icon('heart')} ${state.favoritesOnly?'نمایش همه':'منتخب ها'}`;render()});
 list.addEventListener('click',e=>{const favorite=e.target.closest('[data-favorite-id]');if(favorite){const item=state.items.find(x=>x.id===favorite.dataset.favoriteId);if(!item)return;item.favorite=!item.favorite;saveItems();render();showToast(item.favorite?'به منتخب ها اضافه شد':'از منتخب ها حذف شد');return}const card=e.target.closest('.birthday-card');if(card)showDetail(card.dataset.id)});
@@ -77,7 +88,7 @@ qs('#birthdayForm').addEventListener('submit',e=>{e.preventDefault();const data=
 qsa('.save-reminder').forEach(x=>x.addEventListener('click',()=>showToast('تنظیمات یادآوری ذخیره شد')));
 sheetBackdrop.addEventListener('click',closeSheets);qs('#selectOptions').addEventListener('click',e=>{const option=e.target.closest('.option-item');if(!option||!activeSelectTrigger)return;activeSelectTrigger.querySelector('span').textContent=option.dataset.value;const inputName=activeSelectTrigger.dataset.input;if(inputName){const form=activeSelectTrigger.closest('form');const input=form?.querySelector(`[name="${inputName}"]`);if(input)input.value=option.dataset.value}closeSheets()});
 populateDateWheels();populateTimeWheels();qs('#birthDateTrigger').addEventListener('click',()=>openDatePicker());qs('#editBirthDateTrigger').addEventListener('click',()=>openDatePicker(qs('#editBirthdayForm'),qs('#editBirthDateText')));qs('#confirmDate').addEventListener('click',()=>{if(!activeDateForm)return;const day=Number(qs('#dayWheel').dataset.value),month=Number(qs('#monthWheel').dataset.value);activeDateForm.elements.day.value=day;activeDateForm.elements.month.value=month;activeDateForm.elements.year.value='';if(activeDateText)activeDateText.textContent=`${faPlain.format(day)} ${monthNames[month-1]}`;const returnToEdit=activeDateForm.id==='editBirthdayForm';closeSheets();if(returnToEdit)openSheet(editBirthdaySheet)});qs('#confirmTime').addEventListener('click',()=>{if(!activeTimeTrigger)return;const value=`${qs('#hourWheel').dataset.value}:${qs('#minuteWheel').dataset.value}`,input=activeTimeTrigger.closest('form')?.querySelector(`[name="${activeTimeTrigger.dataset.timeInput}"]`);if(input)input.value=value;activeTimeTrigger.querySelector('span').textContent=formatClock(value);closeSheets()});
-qs('#photoPicker').addEventListener('click',()=>qs('#photoInput').click());qs('#photoInput').addEventListener('change',e=>{const file=e.target.files?.[0];if(file)openPhotoCrop(file,'add');e.target.value=''});
+qs('#photoInput').addEventListener('change',e=>{const file=e.target.files?.[0];if(file)openPhotoCrop(file,'add');e.target.value=''});
 function clampCrop(){if(!cropState)return;const size=qs('#cropPreview').clientWidth,displayWidth=cropState.baseWidth*cropState.zoom,displayHeight=cropState.baseHeight*cropState.zoom,maxX=Math.max(0,(displayWidth-size)/2),maxY=Math.max(0,(displayHeight-size)/2);cropState.x=Math.max(-maxX,Math.min(maxX,cropState.x));cropState.y=Math.max(-maxY,Math.min(maxY,cropState.y))}
 function renderCrop(){if(!cropState)return;clampCrop();const image=qs('#cropImage');image.style.width=`${cropState.baseWidth}px`;image.style.height=`${cropState.baseHeight}px`;image.style.transform=`translate(-50%,-50%) translate(${cropState.x}px,${cropState.y}px) scale(${cropState.zoom})`;qs('#cropZoom').value=String(cropState.zoom)}
 function openPhotoCrop(file,target='detail'){if(!file?.type.startsWith('image/'))return;const reader=new FileReader();reader.onload=()=>{const image=qs('#cropImage');image.onload=()=>{openSheet(photoCropSheet);requestAnimationFrame(()=>{const size=qs('#cropPreview').clientWidth,scale=Math.max(size/image.naturalWidth,size/image.naturalHeight);cropState={target,image,naturalWidth:image.naturalWidth,naturalHeight:image.naturalHeight,baseWidth:image.naturalWidth*scale,baseHeight:image.naturalHeight*scale,zoom:1,x:0,y:0};renderCrop()})};image.src=String(reader.result)};reader.readAsDataURL(file)}

@@ -209,9 +209,9 @@ body{position:fixed;inset:0;width:100%}
 
 /* add birthday form */
 .add-page{padding-top:0}
-.add-photo-hero{position:relative;isolation:isolate;min-height:180px;margin:0 -16px 18px;display:grid;place-items:center;overflow:hidden;background:#f4e8ee}
-.add-photo-hero:before{content:"";position:absolute;z-index:-2;inset:0;background:url('/images/detail/birthday-hero-v2.webp') center 38%/cover no-repeat;opacity:.64;filter:hue-rotate(325deg) saturate(.85)}
-.add-photo-hero:after{content:"";position:absolute;z-index:-1;inset:0;background:rgba(249,238,245,.28)}
+.add-photo-hero{position:relative;isolation:isolate;min-height:180px;margin:0 -16px 18px;display:grid;place-items:center;overflow:hidden;background:#e6f0ed}
+.add-photo-hero:before{content:"";position:absolute;z-index:-2;inset:0;background:url('/images/detail/birthday-hero-v2.webp') center 38%/cover no-repeat;opacity:.8;filter:saturate(1.08)}
+.add-photo-hero:after{content:"";position:absolute;z-index:-1;inset:0;background:rgba(222,239,235,.18)}
 .add-hero-heart{position:absolute;right:18%;top:22px;width:25px;height:25px;color:var(--coral);transform:rotate(10deg);opacity:.84}.add-hero-heart svg{width:100%;height:100%}
 .add-hero-spark{position:absolute;width:10px;height:10px;border-radius:3px;background:#f4bd61;transform:rotate(45deg);box-shadow:0 0 0 5px rgba(244,189,97,.13)}
 .add-hero-spark-one{left:18%;top:39px}
@@ -676,3 +676,7 @@ body{position:fixed;inset:0;width:100%}
   backdrop-filter:blur(14px);
   -webkit-backdrop-filter:blur(14px)
 }
+
+/* Native photo control keeps the first tap in the browser user gesture. */
+.add-page #photoInput{position:absolute;z-index:5;inset:0;width:100%;height:100%;opacity:0;cursor:pointer;font-size:16px}
+.add-page .photo-picker{cursor:pointer}
