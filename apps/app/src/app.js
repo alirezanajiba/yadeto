@@ -1,5 +1,5 @@
 export function initializeApp(){
-const VERSION='2.5.26';
+const VERSION='2.5.27';
 const STORAGE_KEY='yadeto.birthdays.v1';
 const monthNames=['فروردین','اردیبهشت','خرداد','تیر','مرداد','شهریور','مهر','آبان','آذر','دی','بهمن','اسفند'];
 const faPlain=new Intl.NumberFormat('fa-IR',{useGrouping:false});
@@ -35,9 +35,13 @@ function syncGroupFields(oldName,newName){
  qsa('input[name="group"]').forEach(input=>{if(input.value===oldName){input.value=newName;const trigger=qs('[data-input="group"]',input.closest('form'));if(trigger)trigger.querySelector('span').textContent=newName}});
 }
 function renderGroups(){
+ infoSheet.classList.add('group-management-sheet');
+ const previousScroll=qs('.groups-list',infoSheet)?.scrollTop||0;
  qs('#infoSheetTitle').textContent='مدیریت گروه ها';
  const content=qs('#infoSheetContent');
  content.innerHTML=`<div class="groups-intro"><span>${icon('users')}</span><div><b>آدم های مهم زندگی تو</b><small>متولدها را با گروه های دلخواه مرتب کن.</small></div></div><form id="groupForm" class="group-form"><label for="groupName">${editingGroup===null?'افزودن گروه جدید':'ویرایش نام گروه'}</label><div><input id="groupName" name="groupName" maxlength="40" required autocomplete="off" placeholder="مثلاً فامیل" value="${escapeHtml(editingGroup||'')}"><button class="group-submit" type="submit">${editingGroup===null?'افزودن':'ذخیره'}</button></div>${editingGroup===null?'':'<button class="group-cancel" type="button" data-cancel-group>انصراف از ویرایش</button>'}<small id="groupError" role="alert" hidden></small></form><div class="groups-list">${groups.map((name,index)=>`<article class="group-card"><span class="group-symbol">${icon('users')}</span><div class="group-meta"><b>${escapeHtml(name)}</b><small>${faPlain.format(state.items.filter(x=>x.group===name).length)} متولد</small></div><button class="group-icon" type="button" data-edit-group="${index}" aria-label="ویرایش گروه ${escapeHtml(name)}">${icon('edit')}</button><button class="group-icon group-delete" type="button" data-delete-group="${index}" aria-label="حذف گروه ${escapeHtml(name)}">${icon('trash')}</button></article>`).join('')||'<p class="groups-empty">هنوز گروهی نداری؛ اولین گروهت را اضافه کن.</p>'}</div><p class="groups-help">با حذف گروه، متولدهای آن حذف نمی شوند و به «بدون گروه» منتقل می شوند.</p>`;
+ content.append(qs('#groupForm',content));
+ qs('.groups-list',content).scrollTop=previousScroll;
 }
 qs('#infoSheetContent').addEventListener('submit',event=>{
  if(event.target.id!=='groupForm')return;
@@ -100,7 +104,7 @@ function closeDrawer(){qs('#drawer').hidden=true;qs('#drawerBackdrop').hidden=tr
 function openSheet(sheet){[selectSheet,dateSheet,timeSheet,photoCropSheet,editBirthdaySheet,infoSheet,calendarBirthdaysSheet].forEach(x=>x.hidden=x!==sheet);sheetBackdrop.hidden=false;document.body.style.overflow='hidden'}
 function closeSheets(){[selectSheet,dateSheet,timeSheet,photoCropSheet,editBirthdaySheet,infoSheet,calendarBirthdaysSheet].forEach(x=>x.hidden=true);sheetBackdrop.hidden=true;document.body.style.overflow=''}
 function openSelect(trigger){if(trigger.disabled)return;activeSelectTrigger=trigger;qs('#selectSheetTitle').textContent=trigger.dataset.selectTitle||'انتخاب کنید';const current=trigger.querySelector('span')?.textContent.trim();const options=trigger.dataset.input==='group'?getGroupOptions():(trigger.dataset.selectOptions||'').split('|').filter(Boolean);qs('#selectOptions').innerHTML=options.map(value=>`<button class="option-item ${value===current?'active':''}" type="button" data-value="${escapeHtml(value)}">${escapeHtml(value)}</button>`).join('');openSheet(selectSheet)}
-function openInfo(title){closeDrawer();if(title==='مدیریت گروه ها'){editingGroup=null;renderGroups();openSheet(infoSheet);return}qs('#infoSheetTitle').textContent=title;const content={
+function openInfo(title){closeDrawer();if(title==='مدیریت گروه ها'){editingGroup=null;renderGroups();openSheet(infoSheet);return}infoSheet.classList.remove('group-management-sheet');qs('#infoSheetTitle').textContent=title;const content={
   'مدیریت گروه ها':[['خانواده','۳ متولد'],['دوستان','۸ متولد'],['همکاران','۵ متولد']],
   'مدیریت اشتراک':[['اشتراک فعال','پکیج طلایی · ۸۶ روز باقی مانده'],['تاریخچه پرداخت','مشاهده تراکنش های قبلی']],
   'راهنما و پشتیبانی':[['راهنمای ثبت تولد','آموزش ثبت و ویرایش متولد'],['ارتباط با ما','ارسال پیام برای پشتیبانی']],
