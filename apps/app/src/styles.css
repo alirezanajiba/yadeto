@@ -659,6 +659,21 @@ body{position:fixed;inset:0;width:100%}
 }
 #menuButton svg{transform:scaleX(-1)}
 .search-box input{font-size:16px}
+.groups-intro{display:flex;align-items:center;gap:12px;padding:14px;background:var(--teal-soft);border-radius:20px}
+.groups-intro>span,.group-symbol{display:grid;place-items:center;width:42px;height:42px;flex:none;border-radius:14px;background:#fff;color:var(--teal)}
+.groups-intro b,.groups-intro small,.group-meta b,.group-meta small{display:block}
+.groups-intro b{font-size:14px}.groups-intro small{font-size:11px;color:var(--muted);margin-top:4px}
+.group-form{padding:16px;background:#fff;border:1px solid var(--border);border-radius:20px}
+.group-form>label{display:block;font-size:13px;font-weight:800;margin-bottom:9px}
+.group-form>div{display:flex;gap:8px}.group-form input{min-width:0;flex:1;height:46px;padding:0 12px;border:1px solid var(--border);border-radius:13px;font-size:16px;color:var(--text);background:var(--cream)}
+.group-form input:focus{outline:2px solid var(--teal-soft);border-color:var(--teal)}
+.group-submit{padding:0 16px;border:0;border-radius:13px;background:var(--teal);color:#fff;font-size:13px;font-weight:800}
+.group-cancel{border:0;background:transparent;color:var(--muted);font-size:12px;margin-top:10px;padding:5px}
+#groupError{display:block;color:#c54b41;font-size:11px;margin-top:8px}
+.groups-list{display:grid;gap:8px}.group-card{display:flex;align-items:center;gap:9px;padding:12px;background:#fff;border:1px solid var(--border);border-radius:18px}
+.group-symbol{background:var(--teal-soft);width:38px;height:38px}.group-symbol svg{width:20px}.group-meta{flex:1;min-width:0}.group-meta b{font-size:14px;overflow-wrap:anywhere}.group-meta small{font-size:11px;color:var(--muted);margin-top:3px}
+.group-icon{display:grid;place-items:center;width:40px;height:40px;flex:none;border:0;border-radius:12px;background:var(--teal-soft);color:var(--teal)}.group-icon svg{width:18px;height:18px}.group-delete{background:var(--coral-soft);color:var(--coral-dark)}
+.groups-help,.groups-empty{font-size:11px;line-height:1.9;color:var(--muted);margin:3px 4px 8px}.groups-empty{text-align:center;padding:14px}
 
 @media(hover:none){.react-app-root .calendar-shortcut:hover{background:#f7e2d7}}
 @media(max-width:380px){.detail-identity-card .birthday-summary b{font-size:19px}}
