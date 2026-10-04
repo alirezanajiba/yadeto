@@ -674,15 +674,18 @@ body{position:fixed;inset:0;width:100%}
 .group-symbol{background:var(--teal-soft);width:38px;height:38px}.group-symbol svg{width:20px}.group-meta{flex:1;min-width:0}.group-meta b{font-size:14px;overflow-wrap:anywhere}.group-meta small{font-size:11px;color:var(--muted);margin-top:3px}
 .group-icon{display:grid;place-items:center;width:40px;height:40px;flex:none;border:0;border-radius:12px;background:var(--teal-soft);color:var(--teal)}.group-icon svg{width:18px;height:18px}.group-delete{background:var(--coral-soft);color:var(--coral-dark)}
 .groups-help,.groups-empty{font-size:11px;line-height:1.9;color:var(--muted);margin:3px 4px 8px}.groups-empty{text-align:center;padding:14px}
-.group-management-sheet{height:min(82dvh,740px);display:flex;flex-direction:column;overflow:hidden;background:#e7f1ed}
+.group-management-sheet{height:min(82dvh,740px);display:flex;flex-direction:column;overflow:hidden;padding-inline:0;padding-bottom:0;background:var(--cream)}
 .group-management-sheet>.sheet-handle,.group-management-sheet>.sheet-title{flex:none}
+.group-management-sheet>.sheet-title{margin-inline:18px}
 .group-management-sheet #infoSheetContent{display:flex;flex-direction:column;flex:1;min-height:0;overflow:hidden;gap:0;padding-bottom:0}
 .group-management-sheet .groups-intro,.group-management-sheet .groups-help,.group-management-sheet .group-form{flex:none}
-.group-management-sheet .groups-intro{position:relative;z-index:1;margin-inline:-18px;padding:12px 18px 16px;border-radius:0;background:#e7f1ed;box-shadow:0 6px 12px -5px rgba(23,52,61,.22)}
-.group-management-sheet .groups-list{flex:1;min-height:0;overflow-y:auto;overscroll-behavior:contain;-webkit-overflow-scrolling:touch;align-content:start;grid-auto-rows:max-content;margin-inline:-18px;padding:12px 18px;background:var(--cream);scrollbar-width:none;-ms-overflow-style:none}
+.group-management-sheet .groups-top{position:relative;z-index:1;flex:none;padding:0 18px 10px;background:var(--cream);box-shadow:0 6px 12px -5px rgba(23,52,61,.22)}
+.group-management-sheet .groups-intro{background:var(--teal-soft)}
+.group-management-sheet .groups-list{flex:1;min-height:0;overflow-y:auto;overscroll-behavior:contain;-webkit-overflow-scrolling:touch;align-content:start;grid-auto-rows:max-content;padding:12px 18px;background:var(--cream);scrollbar-width:none;-ms-overflow-style:none}
 .group-management-sheet .groups-list::-webkit-scrollbar{display:none;width:0;height:0}
 .group-management-sheet .groups-help{margin:8px 4px}
-.group-management-sheet .group-form{background:#f3f8f5;border-color:#d4e4dc;box-shadow:0 -5px 18px rgba(42,73,76,.04)}
+.group-management-sheet .groups-footer{flex:none;padding:0 18px calc(22px + var(--safe-bottom));background:#e7f1ed}
+.group-management-sheet .group-form{background:#fff;border-color:var(--border);box-shadow:0 -5px 18px rgba(42,73,76,.04)}
 
 @media(hover:none){.react-app-root .calendar-shortcut:hover{background:#f7e2d7}}
 @media(max-width:380px){.detail-identity-card .birthday-summary b{font-size:19px}}

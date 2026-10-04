@@ -1,5 +1,5 @@
 export function initializeApp(){
-const VERSION='2.5.28';
+const VERSION='2.5.29';
 const STORAGE_KEY='yadeto.birthdays.v1';
 const monthNames=['فروردین','اردیبهشت','خرداد','تیر','مرداد','شهریور','مهر','آبان','آذر','دی','بهمن','اسفند'];
 const faPlain=new Intl.NumberFormat('fa-IR',{useGrouping:false});
@@ -40,7 +40,10 @@ function renderGroups(){
  qs('#infoSheetTitle').textContent='مدیریت گروه ها';
  const content=qs('#infoSheetContent');
  content.innerHTML=`<div class="groups-intro"><span>${icon('users')}</span><div><b>آدم های مهم زندگی تو</b><small>متولدها را با گروه های دلخواه مرتب کن.</small></div></div><form id="groupForm" class="group-form"><label for="groupName">${editingGroup===null?'افزودن گروه جدید':'ویرایش نام گروه'}</label><div><input id="groupName" name="groupName" maxlength="40" required autocomplete="off" placeholder="مثلاً فامیل" value="${escapeHtml(editingGroup||'')}"><button class="group-submit" type="submit">${editingGroup===null?'افزودن':'ذخیره'}</button></div>${editingGroup===null?'':'<button class="group-cancel" type="button" data-cancel-group>انصراف از ویرایش</button>'}<small id="groupError" role="alert" hidden></small></form><div class="groups-list">${groups.map((name,index)=>`<article class="group-card"><span class="group-symbol">${icon('users')}</span><div class="group-meta"><b>${escapeHtml(name)}</b><small>${faPlain.format(state.items.filter(x=>x.group===name).length)} متولد</small></div><button class="group-icon" type="button" data-edit-group="${index}" aria-label="ویرایش گروه ${escapeHtml(name)}">${icon('edit')}</button><button class="group-icon group-delete" type="button" data-delete-group="${index}" aria-label="حذف گروه ${escapeHtml(name)}">${icon('trash')}</button></article>`).join('')||'<p class="groups-empty">هنوز گروهی نداری؛ اولین گروهت را اضافه کن.</p>'}</div><p class="groups-help">با حذف گروه، متولدهای آن حذف نمی شوند و به «بدون گروه» منتقل می شوند.</p>`;
- content.append(qs('#groupForm',content));
+ const top=document.createElement('div');top.className='groups-top';
+ top.append(qs('.groups-intro',content));content.prepend(top);
+ const footer=document.createElement('div');footer.className='groups-footer';
+ footer.append(qs('.groups-help',content),qs('#groupForm',content));content.append(footer);
  qs('.groups-list',content).scrollTop=previousScroll;
 }
 qs('#infoSheetContent').addEventListener('submit',event=>{
