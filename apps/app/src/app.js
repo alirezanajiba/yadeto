@@ -1,5 +1,5 @@
 export function initializeApp(){
-const VERSION='2.5.30';
+const VERSION='2.5.31';
 const STORAGE_KEY='yadeto.birthdays.v1';
 const monthNames=['فروردین','اردیبهشت','خرداد','تیر','مرداد','شهریور','مهر','آبان','آذر','دی','بهمن','اسفند'];
 const faPlain=new Intl.NumberFormat('fa-IR',{useGrouping:false});
@@ -39,7 +39,7 @@ function renderGroups(){
  const previousScroll=qs('.groups-list',infoSheet)?.scrollTop||0;
  qs('#infoSheetTitle').textContent='مدیریت گروه ها';
  const content=qs('#infoSheetContent');
- content.innerHTML=`<form id="groupForm" class="group-form"><label for="groupName">${editingGroup===null?'افزودن گروه جدید':'ویرایش نام گروه'}</label><div><input id="groupName" name="groupName" maxlength="40" required autocomplete="off" placeholder="مثلاً فامیل" value="${escapeHtml(editingGroup||'')}"><button class="group-submit" type="submit">${editingGroup===null?'افزودن':'ذخیره'}</button></div>${editingGroup===null?'':'<button class="group-cancel" type="button" data-cancel-group>انصراف از ویرایش</button>'}<small id="groupError" role="alert" hidden></small></form><div class="groups-list">${groups.map((name,index)=>`<article class="group-card"><span class="group-symbol">${icon('users')}</span><div class="group-meta"><b>${escapeHtml(name)}</b><small>${faPlain.format(state.items.filter(x=>x.group===name).length)} متولد</small></div><button class="group-icon" type="button" data-edit-group="${index}" aria-label="ویرایش گروه ${escapeHtml(name)}">${icon('edit')}</button><button class="group-icon group-delete" type="button" data-delete-group="${index}" aria-label="حذف گروه ${escapeHtml(name)}">${icon('trash')}</button></article>`).join('')||'<p class="groups-empty">هنوز گروهی نداری؛ اولین گروهت را اضافه کن.</p>'}</div>`;
+ content.innerHTML=`<form id="groupForm" class="group-form"><label for="groupName">${editingGroup===null?'افزودن گروه جدید':'ویرایش نام گروه'}</label><div><input id="groupName" name="groupName" maxlength="40" required autocomplete="off" placeholder="مثلاً فامیل" value="${escapeHtml(editingGroup||'')}"><button class="group-submit" type="submit">${editingGroup===null?'افزودن':'ذخیره'}</button>${editingGroup===null?'':'<button class="group-cancel" type="button" data-cancel-group>انصراف</button>'}</div><small id="groupError" role="alert" hidden></small></form><div class="groups-list">${groups.map((name,index)=>`<article class="group-card"><span class="group-symbol">${icon('users')}</span><div class="group-meta"><b>${escapeHtml(name)}</b><small>${faPlain.format(state.items.filter(x=>x.group===name).length)} متولد</small></div><button class="group-icon" type="button" data-edit-group="${index}" aria-label="ویرایش گروه ${escapeHtml(name)}">${icon('edit')}</button><button class="group-icon group-delete" type="button" data-delete-group="${index}" aria-label="حذف گروه ${escapeHtml(name)}">${icon('trash')}</button></article>`).join('')||'<p class="groups-empty">هنوز گروهی نداری؛ اولین گروهت را اضافه کن.</p>'}</div>`;
  const footer=document.createElement('div');footer.className='groups-footer';
  footer.append(qs('#groupForm',content));content.append(footer);
  qs('.groups-list',content).scrollTop=previousScroll;
@@ -53,6 +53,18 @@ function syncGroupsViewport(){
  infoSheet.style.setProperty('--groups-visible-height',`${viewport?.height||window.innerHeight}px`);
  infoSheet.style.setProperty('--groups-safe-bottom',bottom>80?'0px':'var(--safe-bottom)');
 }
+function focusGroupName(){
+ const input=qs('#groupName');if(!input||document.activeElement===input)return;
+ // Invisible focus prevents Safari's automatic scroll-to-input before keyboard resize.
+ input.style.opacity='0';
+ input.focus({preventScroll:true});
+ syncGroupsViewport();
+ requestAnimationFrame(()=>requestAnimationFrame(()=>{input.style.opacity=''}));
+}
+qs('#infoSheetContent').addEventListener('pointerdown',event=>{
+ if(event.target.id!=='groupName'||event.button!==0||document.activeElement===event.target)return;
+ event.preventDefault();focusGroupName();
+});
 window.visualViewport?.addEventListener('resize',syncGroupsViewport);
 window.visualViewport?.addEventListener('scroll',syncGroupsViewport);
 window.addEventListener('resize',syncGroupsViewport);
@@ -66,7 +78,7 @@ qs('#infoSheetContent').addEventListener('submit',event=>{
 });
 qs('#infoSheetContent').addEventListener('click',event=>{
  const edit=event.target.closest('[data-edit-group]'),remove=event.target.closest('[data-delete-group]');
- if(edit){editingGroup=groups[Number(edit.dataset.editGroup)];renderGroups();qs('#groupName').focus({preventScroll:true});return}
+ if(edit){editingGroup=groups[Number(edit.dataset.editGroup)];renderGroups();focusGroupName();return}
  if(event.target.closest('[data-cancel-group]')){editingGroup=null;renderGroups();return}
  if(!remove)return;const name=groups[Number(remove.dataset.deleteGroup)];if(!name)return;
  pendingGroupDelete=name;
@@ -126,7 +138,7 @@ function closeDrawer(){qs('#drawer').hidden=true;qs('#drawerBackdrop').hidden=tr
 function openSheet(sheet){[selectSheet,dateSheet,timeSheet,photoCropSheet,editBirthdaySheet,infoSheet,calendarBirthdaysSheet].forEach(x=>x.hidden=x!==sheet);sheetBackdrop.hidden=false;document.body.style.overflow='hidden'}
 function closeSheets(){[selectSheet,dateSheet,timeSheet,photoCropSheet,editBirthdaySheet,infoSheet,calendarBirthdaysSheet].forEach(x=>x.hidden=true);sheetBackdrop.hidden=true;document.body.style.overflow=''}
 function openSelect(trigger){if(trigger.disabled)return;activeSelectTrigger=trigger;qs('#selectSheetTitle').textContent=trigger.dataset.selectTitle||'انتخاب کنید';const current=trigger.querySelector('span')?.textContent.trim();const options=trigger.dataset.input==='group'?getGroupOptions():(trigger.dataset.selectOptions||'').split('|').filter(Boolean);qs('#selectOptions').innerHTML=options.map(value=>`<button class="option-item ${value===current?'active':''}" type="button" data-value="${escapeHtml(value)}">${escapeHtml(value)}</button>`).join('');openSheet(selectSheet)}
-function openInfo(title){closeDrawer();if(title==='مدیریت گروه ها'){editingGroup=null;renderGroups();openSheet(infoSheet);syncGroupsViewport();return}infoSheet.classList.remove('group-management-sheet');qs('#infoSheetTitle').textContent=title;const content={
+function openInfo(title){closeDrawer();if(title==='مدیریت گروه ها'){editingGroup=null;infoSheet.style.setProperty('--groups-rest-height',`${Math.min(window.innerHeight*.82,740)}px`);renderGroups();openSheet(infoSheet);syncGroupsViewport();return}infoSheet.classList.remove('group-management-sheet');qs('#infoSheetTitle').textContent=title;const content={
   'مدیریت گروه ها':[['خانواده','۳ متولد'],['دوستان','۸ متولد'],['همکاران','۵ متولد']],
   'مدیریت اشتراک':[['اشتراک فعال','پکیج طلایی · ۸۶ روز باقی مانده'],['تاریخچه پرداخت','مشاهده تراکنش های قبلی']],
   'راهنما و پشتیبانی':[['راهنمای ثبت تولد','آموزش ثبت و ویرایش متولد'],['ارتباط با ما','ارسال پیام برای پشتیبانی']],
