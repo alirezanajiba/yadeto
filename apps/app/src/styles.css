@@ -674,7 +674,7 @@ body{position:fixed;inset:0;width:100%}
 .group-symbol{background:var(--teal-soft);width:38px;height:38px}.group-symbol svg{width:20px}.group-meta{flex:1;min-width:0}.group-meta b{font-size:14px;overflow-wrap:anywhere}.group-meta small{font-size:11px;color:var(--muted);margin-top:3px}
 .group-icon{display:grid;place-items:center;width:40px;height:40px;flex:none;border:0;border-radius:12px;background:var(--teal-soft);color:var(--teal)}.group-icon svg{width:18px;height:18px}.group-delete{background:var(--coral-soft);color:var(--coral-dark)}
 .groups-help,.groups-empty{font-size:11px;line-height:1.9;color:var(--muted);margin:3px 4px 8px}.groups-empty{text-align:center;padding:14px}
-.group-management-sheet{height:min(82dvh,740px);display:flex;flex-direction:column;overflow:hidden;padding-inline:0;padding-bottom:0;background:var(--cream)}
+.group-management-sheet{height:min(82dvh,740px,var(--groups-visible-height,100dvh));max-height:var(--groups-visible-height,82dvh);bottom:var(--groups-keyboard-bottom,0px);display:flex;flex-direction:column;overflow:hidden;padding-inline:0;padding-bottom:0;background:var(--cream)}
 .group-management-sheet>.sheet-handle,.group-management-sheet>.sheet-title{flex:none}
 .group-management-sheet>.sheet-title{margin-inline:18px}
 .group-management-sheet #infoSheetContent{display:flex;flex-direction:column;flex:1;min-height:0;overflow:hidden;gap:0;padding-bottom:0}
@@ -684,8 +684,14 @@ body{position:fixed;inset:0;width:100%}
 .group-management-sheet .groups-list{flex:1;min-height:0;overflow-y:auto;overscroll-behavior:contain;-webkit-overflow-scrolling:touch;align-content:start;grid-auto-rows:max-content;padding:12px 18px;background:var(--cream);scrollbar-width:none;-ms-overflow-style:none}
 .group-management-sheet .groups-list::-webkit-scrollbar{display:none;width:0;height:0}
 .group-management-sheet .groups-help{margin:8px 4px}
-.group-management-sheet .groups-footer{flex:none;padding:0 18px calc(22px + var(--safe-bottom));background:#e7f1ed}
-.group-management-sheet .group-form{background:#fff;border-color:var(--border);box-shadow:0 -5px 18px rgba(42,73,76,.04)}
+.group-management-sheet .groups-footer{flex:none;padding:14px 18px calc(22px + var(--groups-safe-bottom,var(--safe-bottom)));background:#e7f1ed}
+.group-management-sheet .group-form{padding:0;background:transparent;border:0;border-radius:0;box-shadow:none}
+.group-management-sheet>.sheet-title{position:relative;z-index:1;box-shadow:0 6px 12px -5px rgba(23,52,61,.15)}
+.group-delete-dialog{width:min(360px,calc(100% - 36px));padding:22px;border:1px solid var(--border);border-radius:24px;background:var(--cream);color:var(--text);font-family:inherit;text-align:center;box-shadow:0 18px 48px rgba(23,52,61,.2)}
+.group-delete-dialog::backdrop{background:rgba(17,45,50,.38);backdrop-filter:blur(3px)}
+.group-delete-symbol{display:grid;place-items:center;width:48px;height:48px;margin:0 auto 12px;background:var(--coral-soft);color:var(--coral-dark);border-radius:16px}
+.group-delete-dialog h2{margin:0;font-size:16px;overflow-wrap:anywhere}.group-delete-dialog p{margin:10px 0 18px;font-size:13px;line-height:1.9;color:var(--muted)}
+.group-delete-dialog .sheet-action.confirm{background:var(--coral);color:#fff}
 
 @media(hover:none){.react-app-root .calendar-shortcut:hover{background:#f7e2d7}}
 @media(max-width:380px){.detail-identity-card .birthday-summary b{font-size:19px}}
