@@ -1,5 +1,5 @@
 export function initializeApp(){
-const VERSION='2.5.31';
+const VERSION='2.5.32';
 const STORAGE_KEY='yadeto.birthdays.v1';
 const monthNames=['فروردین','اردیبهشت','خرداد','تیر','مرداد','شهریور','مهر','آبان','آذر','دی','بهمن','اسفند'];
 const faPlain=new Intl.NumberFormat('fa-IR',{useGrouping:false});
@@ -48,18 +48,30 @@ function renderGroups(){
 function syncGroupsViewport(){
  if(infoSheet.hidden||!infoSheet.classList.contains('group-management-sheet'))return;
  const viewport=window.visualViewport;
- const bottom=viewport?Math.max(0,window.innerHeight-viewport.height-viewport.offsetTop):0;
- infoSheet.style.setProperty('--groups-keyboard-bottom',`${bottom}px`);
- infoSheet.style.setProperty('--groups-visible-height',`${viewport?.height||window.innerHeight}px`);
- infoSheet.style.setProperty('--groups-safe-bottom',bottom>80?'0px':'var(--safe-bottom)');
+ const visibleHeight=viewport?.height||window.innerHeight,visibleTop=viewport?.offsetTop||0;
+ const restHeight=parseFloat(infoSheet.style.getPropertyValue('--groups-rest-height'))||Math.min(window.innerHeight*.82,740);
+ const height=Math.min(restHeight,visibleHeight);
+ const keyboardOpen=document.activeElement?.id==='groupName'&&visibleHeight<restHeight/.82-80;
+ // Anchor directly in visual-viewport coordinates: innerHeight may already
+ // shrink on iOS, making the old bottom-offset calculation incorrectly zero.
+ infoSheet.style.setProperty('--groups-top',`${visibleTop+visibleHeight-height}px`);
+ infoSheet.style.setProperty('--groups-height',`${height}px`);
+ infoSheet.style.setProperty('--groups-safe-bottom',keyboardOpen?'0px':'var(--safe-bottom)');
+ sheetBackdrop.classList.toggle('groups-keyboard-backdrop',keyboardOpen);
+ sheetBackdrop.style.setProperty('--groups-fill-top',`${visibleTop+visibleHeight-1}px`);
+}
+let groupsViewportTimer=0;
+function settleGroupsViewport(){
+ clearTimeout(groupsViewportTimer);
+ const until=performance.now()+1000;
+ const update=()=>{syncGroupsViewport();if(!infoSheet.hidden&&performance.now()<until)groupsViewportTimer=setTimeout(update,50)};
+ update();
 }
 function focusGroupName(){
  const input=qs('#groupName');if(!input||document.activeElement===input)return;
- // Invisible focus prevents Safari's automatic scroll-to-input before keyboard resize.
- input.style.opacity='0';
+ // Never hide the field: iOS can suspend animation frames during keyboard opening.
  input.focus({preventScroll:true});
- syncGroupsViewport();
- requestAnimationFrame(()=>requestAnimationFrame(()=>{input.style.opacity=''}));
+ settleGroupsViewport();
 }
 qs('#infoSheetContent').addEventListener('pointerdown',event=>{
  if(event.target.id!=='groupName'||event.button!==0||document.activeElement===event.target)return;
@@ -68,7 +80,8 @@ qs('#infoSheetContent').addEventListener('pointerdown',event=>{
 window.visualViewport?.addEventListener('resize',syncGroupsViewport);
 window.visualViewport?.addEventListener('scroll',syncGroupsViewport);
 window.addEventListener('resize',syncGroupsViewport);
-qs('#infoSheetContent').addEventListener('focusin',()=>requestAnimationFrame(syncGroupsViewport));
+qs('#infoSheetContent').addEventListener('focusin',settleGroupsViewport);
+qs('#infoSheetContent').addEventListener('focusout',settleGroupsViewport);
 qs('#infoSheetContent').addEventListener('submit',event=>{
  if(event.target.id!=='groupForm')return;
  event.preventDefault();const input=qs('#groupName'),name=input.value.trim().replace(/\s+/g,' '),error=qs('#groupError');
@@ -135,8 +148,8 @@ function showDetail(id){const item=state.items.find(x=>x.id===id);if(!item)retur
 let toastTimer;function showToast(message){toast.textContent=message;toast.hidden=false;clearTimeout(toastTimer);toastTimer=setTimeout(()=>toast.hidden=true,2400)}
 function openDrawer(){qs('#drawer').hidden=false;qs('#drawerBackdrop').hidden=false;document.body.style.overflow='hidden'}
 function closeDrawer(){qs('#drawer').hidden=true;qs('#drawerBackdrop').hidden=true;document.body.style.overflow=''}
-function openSheet(sheet){[selectSheet,dateSheet,timeSheet,photoCropSheet,editBirthdaySheet,infoSheet,calendarBirthdaysSheet].forEach(x=>x.hidden=x!==sheet);sheetBackdrop.hidden=false;document.body.style.overflow='hidden'}
-function closeSheets(){[selectSheet,dateSheet,timeSheet,photoCropSheet,editBirthdaySheet,infoSheet,calendarBirthdaysSheet].forEach(x=>x.hidden=true);sheetBackdrop.hidden=true;document.body.style.overflow=''}
+function openSheet(sheet){sheetBackdrop.classList.remove('groups-keyboard-backdrop');clearTimeout(groupsViewportTimer);[selectSheet,dateSheet,timeSheet,photoCropSheet,editBirthdaySheet,infoSheet,calendarBirthdaysSheet].forEach(x=>x.hidden=x!==sheet);sheetBackdrop.hidden=false;document.body.style.overflow='hidden'}
+function closeSheets(){sheetBackdrop.classList.remove('groups-keyboard-backdrop');clearTimeout(groupsViewportTimer);[selectSheet,dateSheet,timeSheet,photoCropSheet,editBirthdaySheet,infoSheet,calendarBirthdaysSheet].forEach(x=>x.hidden=true);sheetBackdrop.hidden=true;document.body.style.overflow=''}
 function openSelect(trigger){if(trigger.disabled)return;activeSelectTrigger=trigger;qs('#selectSheetTitle').textContent=trigger.dataset.selectTitle||'انتخاب کنید';const current=trigger.querySelector('span')?.textContent.trim();const options=trigger.dataset.input==='group'?getGroupOptions():(trigger.dataset.selectOptions||'').split('|').filter(Boolean);qs('#selectOptions').innerHTML=options.map(value=>`<button class="option-item ${value===current?'active':''}" type="button" data-value="${escapeHtml(value)}">${escapeHtml(value)}</button>`).join('');openSheet(selectSheet)}
 function openInfo(title){closeDrawer();if(title==='مدیریت گروه ها'){editingGroup=null;infoSheet.style.setProperty('--groups-rest-height',`${Math.min(window.innerHeight*.82,740)}px`);renderGroups();openSheet(infoSheet);syncGroupsViewport();return}infoSheet.classList.remove('group-management-sheet');qs('#infoSheetTitle').textContent=title;const content={
   'مدیریت گروه ها':[['خانواده','۳ متولد'],['دوستان','۸ متولد'],['همکاران','۵ متولد']],

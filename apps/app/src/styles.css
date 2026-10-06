@@ -674,7 +674,8 @@ body{position:fixed;inset:0;width:100%}
 .group-symbol{background:var(--teal-soft);width:38px;height:38px}.group-symbol svg{width:20px}.group-meta{flex:1;min-width:0}.group-meta b{font-size:14px;overflow-wrap:anywhere}.group-meta small{font-size:11px;color:var(--muted);margin-top:3px}
 .group-icon{display:grid;place-items:center;width:40px;height:40px;flex:none;border:0;border-radius:12px;background:var(--teal-soft);color:var(--teal)}.group-icon svg{width:18px;height:18px}.group-delete{background:var(--coral-soft);color:var(--coral-dark)}
 .groups-help,.groups-empty{font-size:11px;line-height:1.9;color:var(--muted);margin:3px 4px 8px}.groups-empty{text-align:center;padding:14px}
-.group-management-sheet{height:min(var(--groups-rest-height,740px),var(--groups-visible-height,100dvh));max-height:var(--groups-visible-height,82dvh);bottom:var(--groups-keyboard-bottom,0px);display:flex;flex-direction:column;overflow:hidden;padding-inline:0;padding-bottom:0;background:var(--cream)}
+.group-management-sheet{top:var(--groups-top,auto);bottom:auto;height:var(--groups-height,82dvh);max-height:none;display:flex;flex-direction:column;overflow:hidden;padding-inline:0;padding-bottom:0;background:var(--cream)}
+.sheet-backdrop.groups-keyboard-backdrop:after{content:"";position:fixed;top:var(--groups-fill-top);bottom:0;left:50%;transform:translateX(-50%);width:min(520px,100%);background:#f4ece3;pointer-events:none}
 .group-management-sheet>.sheet-handle,.group-management-sheet>.sheet-title{flex:none}
 .group-management-sheet>.sheet-title{margin-inline:18px}
 .group-management-sheet #infoSheetContent{display:flex;flex-direction:column;flex:1;min-height:0;overflow:hidden;gap:0;padding-bottom:0}
